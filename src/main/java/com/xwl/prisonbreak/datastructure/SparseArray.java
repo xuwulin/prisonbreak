@@ -282,8 +282,9 @@ public class SparseArray {
         try {
             // 读取一行数据
             String line = br.readLine();
+            String[] split = line.split("\t");
             // 将数据转化为int类型
-            int lines = Integer.parseInt(line);
+            int lines = Integer.parseInt(split[0]);
             System.out.println(lines);
 
             String[] sp = null;
@@ -292,8 +293,8 @@ public class SparseArray {
             int count = 0;
             // 按行读取
             while ((line = br.readLine()) != null) {
-                // 按空格进行分割
-                sp = line.split(" ");
+                // 按制表符（空格）进行分割
+                sp = line.split("\t");
                 for (int i = 0; i < sp.length; i++) {
                     c[count][i] = sp[i];
                 }
