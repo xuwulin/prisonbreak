@@ -186,8 +186,10 @@ public class SparseArray {
             for (int i = 0; i < arrays.length; i++) {
                 // 遍历列
                 for (int j = 0; j < arrays[i].length; j++) {
+                    // 字符与字符之间用制表符隔开
                     writer.write(arrays[i][j] + "\t");
                 }
+                // 换行
                 writer.write("\r\n");
             }
         } catch (IOException e) {
@@ -282,6 +284,7 @@ public class SparseArray {
         try {
             // 读取一行数据
             String line = br.readLine();
+            // 按制表符截取
             String[] split = line.split("\t");
             // 将数据转化为int类型
             int lines = Integer.parseInt(split[0]);
