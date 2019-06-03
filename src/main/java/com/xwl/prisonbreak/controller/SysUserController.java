@@ -138,6 +138,13 @@ public class SysUserController {
         return userIPage;
     }
 
+    @GetMapping("/listContentByDynamicTableName")
+    @ApiOperation("根据表名获取该表内容（动态传入表名）")
+    public List<Map<String, Object>> listContentByDynamicTableName(String tableName) {
+        List<Map<String, Object>> res = sysUserService.listContentByDynamicTableName("sys_user");
+        return res;
+    }
+
     @PostMapping("insert")
     @ApiOperation("新增一条数据，返回新增的id")
     public Integer insert(@RequestBody SysUser sysUser) {

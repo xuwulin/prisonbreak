@@ -5,6 +5,9 @@ import com.xwl.prisonbreak.model.po.SysUser;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @Auther: xuwulin
  * @Date: 2019/5/16 10:52
@@ -30,4 +33,13 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      */
     @Select("SELECT * FROM sys_user t WHERE t.id = #{id}")
     SysUser findByIdUseAnnotation(@Param("id") String id);
+
+    /**
+     * 根据动态表名查询内容。
+     * 注意：必须使用 ${}，使用 #{}会查询报错
+     * @param tableName 表名
+     * @return
+     */
+    @Select("SELECT * FROM ${tableName}")
+    List<Map<String, Object>> listContentByDynamicTableName(@Param("tableName") String tableName);
 }

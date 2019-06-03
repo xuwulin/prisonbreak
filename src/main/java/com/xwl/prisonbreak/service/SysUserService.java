@@ -3,6 +3,9 @@ package com.xwl.prisonbreak.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xwl.prisonbreak.model.po.SysUser;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @Auther: xuwulin
  * @Date: 2019/5/16 10:54
@@ -30,4 +33,6 @@ public interface SysUserService extends IService<SysUser> {
      * @return
      */
     Integer insert(SysUser sysUser);
+
+    List<Map<String, Object>> listContentByDynamicTableName(String tableName);
 }

@@ -7,6 +7,9 @@ import com.xwl.prisonbreak.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @Auther: xuwulin
  * @Date: 2019/5/16 10:55
@@ -41,5 +44,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
         return id;
     }
+
+    @Override
+    public List<Map<String, Object>> listContentByDynamicTableName(String tableName) {
+        List<Map<String, Object>> res = sysUserMapper.listContentByDynamicTableName(tableName);
+        return res;
+    }
+
 
 }
