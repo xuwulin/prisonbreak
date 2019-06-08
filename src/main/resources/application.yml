@@ -10,12 +10,12 @@ spring:
     name: prisonbreak
   servlet:
     # 文件上传配置，见下upload
-#    multipart:
-#      enabled: true
-#      # 单次上传文件大小
-#      max-file-size: 100MB
-#      # 单次上传总文件大小
-#      max-request-size: 500MB
+    multipart:
+      enabled: true
+      # 单次上传文件大小KB/MB
+      max-file-size: 10MB
+      # 单次上传总文件大小KB/MB
+      max-request-size: 50MB
   jackson:
     # 设置返回给前台页面的日期格式
     date-format: yyyy-MM-dd HH:mm:ss
@@ -125,7 +125,7 @@ upload:
   localtion:
     windows: D:/prisonbreak-upload/file/
     linux: /local/prisonbreak-upload/file/
-  # 单个文件最大KB/MB
-  maxFileSize: 10240KB
+  # 单个文件最大KB/MB，此处配置文件上传大小并不生效，需要在spring.application.multipart中配置！！！
+#  maxFileSize: 102400KB
   # 单次上传文件总大小KB/MB
-  maxRequestSize: 102400KB
+#  maxRequestSize: 1024000KB

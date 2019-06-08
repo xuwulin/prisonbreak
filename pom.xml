@@ -162,6 +162,12 @@
             <version>1.9.3</version>
         </dependency>
 
+        <!-- commons-text依赖 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>1.6</version>
+        </dependency>
 
         <!-- 引入对象转换工具modelmapper依赖 -->
         <dependency>

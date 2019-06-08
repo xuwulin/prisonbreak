@@ -63,7 +63,7 @@ public class FileInfo extends BaseEntity {
     private String fileType;
 
     /**
-     * md5
+     * 文件路径md5加密
      */
     @TableField("md5")
     private String md5;
@@ -75,7 +75,7 @@ public class FileInfo extends BaseEntity {
     private Boolean valid = true;
 
     /**
-     * 文件大小
+     * 文件大小，单位B（Byte）
      */
     @TableField("size")
     private Long size;
@@ -88,6 +88,7 @@ public class FileInfo extends BaseEntity {
 
     /**
      * 文件内容
+     * 数据库中不存在此字段
      */
     @TableField(exist = false)
     private InputStream content;

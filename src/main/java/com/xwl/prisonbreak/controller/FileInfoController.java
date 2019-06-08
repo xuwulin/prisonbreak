@@ -6,6 +6,7 @@ import com.xwl.prisonbreak.model.vo.ResponseInfo;
 import com.xwl.prisonbreak.service.FileInfoService;
 import com.xwl.prisonbreak.util.FileUtils;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -16,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -39,14 +39,14 @@ public class FileInfoController {
      * 文件上传
      * 1. 文件上传后的文件名
      * 2. 上传后的文件路径 , 当前年月日时 如:2018060801  2018年6月8日 01时
-     * 3. file po 类需要保存文件信息 ,旧名 ,大小 , 上传时间 , 是否删除 ,
+     * 3. file po 类需要保存文件信息：文件原名称, 文件大小, 上传时间, 是否删除。。。
      *
-     * @param file
-     * @param request
+     * @param file 文件
      * @return
      */
-    @PostMapping("uploadFile")
-    public ResponseInfo<?> uploadFile(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+    @PostMapping("/uploadFile")
+    @ApiOperation("文件上传")
+    public ResponseInfo<?> uploadFile(@RequestParam("file") MultipartFile file) {
         // 判断文件是否为空
         if (file.isEmpty()) {
             return ResponseInfo.error("文件不能为空");
@@ -63,7 +63,8 @@ public class FileInfoController {
      * @param fileName
      * @param res
      */
-    @RequestMapping(value = "/downloadFile/{fileName}")
+    @PostMapping("/downloadFile/{fileName}")
+    @ApiOperation("文件下载（根据文件名fileName）")
     public void downloadFile(@PathVariable("fileName") String fileName, HttpServletResponse res) {
         try {
             fileInfoService.downloadFile(fileName, res);
@@ -77,7 +78,8 @@ public class FileInfoController {
     /**
      * 文件查看
      */
-    @RequestMapping(value = "/view", method = RequestMethod.GET)
+    @GetMapping("/view")
+    @ApiOperation("文件查看")
     public ResponseEntity<InputStreamResource> view(@RequestParam("fileName") String fileName){
         FileInfo fileInfo = null;
         try {
@@ -107,7 +109,8 @@ public class FileInfoController {
     /**
      * 文件列表查询
      */
-    @RequestMapping(value = "/find")
+    @GetMapping("/find")
+    @ApiOperation("文件列表查询")
     public ResponseInfo<?> findList(@RequestParam("resourceId") String resourceId) {
         try {
             return fileInfoService.findFileList(resourceId);
@@ -119,7 +122,8 @@ public class FileInfoController {
     /**
      * 逻辑删除文件
      */
-    @RequestMapping(value = "/deleteFile")
+    @DeleteMapping("/deleteFile")
+    @ApiOperation("逻辑删除文件")
     public ResponseInfo<?> deleteFile(@RequestParam("fileName") String fileName) {
         try {
             return fileInfoService.deleteFile(fileName);

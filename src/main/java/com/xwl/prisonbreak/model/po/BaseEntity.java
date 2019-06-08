@@ -37,12 +37,12 @@ public class BaseEntity implements Serializable {
      */
     @TableField("deleted")
     @TableLogic
-    private Integer deleted;
+    private Integer deleted = 0;
 
     /**
-     * 乐观锁
+     * 乐观锁(默认值0)
      */
     @Version
     @TableField("update_version")
-    private Integer updateVersion;
+    private Integer updateVersion = 0;
 }

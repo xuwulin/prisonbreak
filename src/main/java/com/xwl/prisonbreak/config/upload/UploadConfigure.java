@@ -35,7 +35,7 @@ public class UploadConfigure {
     private String maxRequestSize;
 
     /**
-     * 获取基础路径
+     * 从配置文件application.yml中获取基础路径
      * @return
      */
     public String getBasePath() {

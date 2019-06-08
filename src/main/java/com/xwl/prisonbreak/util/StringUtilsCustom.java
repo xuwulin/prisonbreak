@@ -5,7 +5,7 @@ package com.xwl.prisonbreak.util;
 
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.BooleanUtils;
-import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
@@ -16,9 +16,9 @@ import java.util.regex.Pattern;
 /**
  * @Auther: xuwulin
  * @Date: 2019/5/15 17:02
- * @Description: 字符串工具类, 继承org.apache.commons.lang3.StringUtils类
+ * @Description: 自定义字符串工具类, 继承org.apache.commons.lang3.StringUtils类
  */
-public class StringUtils extends org.apache.commons.lang3.StringUtils {
+public class StringUtilsCustom extends org.apache.commons.lang3.StringUtils {
 
     private static final char SEPARATOR = '_';
     private static final String CHARSET_NAME = "UTF-8";

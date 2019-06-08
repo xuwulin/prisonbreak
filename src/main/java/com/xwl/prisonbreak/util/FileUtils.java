@@ -45,11 +45,18 @@ public class FileUtils {
 
     /**
      * 获取随机文件名，文件名以FL_开头
-     *
+     * @param prefix 文件名前缀
+     * @param length 文件名长度（除去前缀后的长度）
      * @return
      */
-    public static String getFileName() {
-        return UUIDUtil.getUid("FL_", 17);
+    public static String getFileName(String prefix, Integer length) {
+        if (StringUtils.isBlank(prefix)) {
+            prefix = "FN";
+        }
+        if (length == null) {
+            length = 16;
+        }
+        return UUIDUtil.getUid(prefix, length);
     }
 
     /**
