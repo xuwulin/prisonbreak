@@ -14,6 +14,13 @@ import java.util.Date;
  * @Auther: xuwulin
  * @Date: 2019/5/16 10:13
  * @Description: 用户实体
+ *
+ * AR模式：Active Record(活动记录)，是一种领域模型模式，特点是一个模型类对应关系型数据库中的一个表，
+ * 而模型类的一个实例对应表中的一行记录。ActiveRecord 一直广受动态语言（ PHP 、 Ruby 等）的喜爱，
+ * 而 Java 作为准静态语言，对于 ActiveRecord 往往只能感叹其优雅，所以 MP 也在 AR 道路上进行了一定的探索，
+ * 仅仅需要让实体类继承 Model 类且实现主键指定方法，即可开启 AR 之旅。接下来看具体代码：
+ *
+ * 如果不使用AR模式，则可以不用继承Model类
  */
 @Data
 @NoArgsConstructor
@@ -23,7 +30,7 @@ import java.util.Date;
 //@TableName(value = "sys_user")
 // oracle数据库主键使用序列，则需要使用@KeySequence注解，value为序列的名字，clazz为主键对应实体属性的类型
 //@KeySequence(value = "seq_user", clazz = Integer.class)
-public class SysUser extends Model {
+public class SysUser extends Model<SysUser> {
 
     /**
      * 主键
@@ -118,6 +125,10 @@ public class SysUser extends Model {
     @TableField("update_version")
     private Integer updateVersion;
 
+    /**
+     * 范回此类的主键
+     * @return
+     */
     @Override
     protected Serializable pkVal() {
         return this.id;
