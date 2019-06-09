@@ -29,12 +29,12 @@ public interface FileInfoService extends IService<FileInfo> {
     /**
      * 文件下载
      *
-     * @param fileName
-     * @param res
+     * @param fileInfo 文件信息
+     * @param res 响应结果
      * @throws BusinessException
      * @throws UnsupportedEncodingException
      */
-    void downloadFile(String fileName, HttpServletResponse res) throws BusinessException, UnsupportedEncodingException;
+    void downloadFile(FileInfo fileInfo, HttpServletResponse res) throws BusinessException, UnsupportedEncodingException;
 
     /**
      * 文件查看

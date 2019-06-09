@@ -82,9 +82,10 @@ public class FileInfo extends BaseEntity {
 
     /**
      * 删除时间
+     * 逻辑删除时，此值不能被赋值
      */
-    @TableField("delete_time")
-    private String deleteTime;
+//    @TableField("delete_time")
+//    private String deleteTime;
 
     /**
      * 文件内容

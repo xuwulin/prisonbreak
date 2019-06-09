@@ -24,6 +24,6 @@ public interface FileInfoMapper extends BaseMapper<FileInfo> {
     List<FileInfo> findByValid(@Param("valid") Boolean valid);
 
     @Select("SELECT * FROM file_info t WHERE t.resource_id = #{resourceId}")
-    List<FileInfo> findByResourceId(String resourceId);
+    List<FileInfo> findByResourceId(@Param("resourceId") String resourceId);
 
 }

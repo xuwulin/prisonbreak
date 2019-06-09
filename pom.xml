@@ -36,6 +36,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Spring Boot Annotion processor not found in classpath解决方案：需要在pom中添加dependences -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!-- 引入lombok依赖 -->
         <dependency>
             <groupId>org.projectlombok</groupId>
