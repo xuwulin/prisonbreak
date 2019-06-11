@@ -886,8 +886,60 @@ public class PrisonbreakApplicationTests {
                                 })
                         )
                 );
-        // {MEAT={FAT=[pork], DIET=[chicken], NORMAL=[beef]}, OTHER={DIET=[rice, season fruit], NORMAL=[french fries, pizza]}, FISH={DIET=[prawns], NORMAL=[salmon]}}
+        // {MEAT={FAT=[pork], DIET=[chicken], NORMAL=[beef]},
+        // OTHER={DIET=[rice, season fruit], NORMAL=[french fries, pizza]},
+        // FISH={DIET=[prawns], NORMAL=[salmon]}}
         System.out.println(dishesByTypeCaloricLevel);
 
+        /**
+         * 要数一数菜单中每类菜有多少个，可以传递 counting 收集器作为groupingBy 收集器的第二个参数
+         */
+        Map<Dish.Type, Long> typesCount = menu.stream().collect(groupingBy(Dish::getType, counting()));
+        // {FISH=2, OTHER=4, MEAT=3}
+        System.out.println(typesCount);
+
+        /**
+         * 然而常常和 groupingBy 联合使用的另一个收集器是 mapping 方法生成的。这个方法接受两
+         * 个参数：一个函数对流中的元素做变换，另一个则将变换的结果对象收集起来。其目的是在累加
+         * 之前对每个输入元素应用一个映射函数，这样就可以让接受特定类型元素的收集器适应不同类型
+         * 的对象。我们来看一个使用这个收集器的实际例子。比方说你想要知道，对于每种类型的 Dish ，
+         * 菜单中都有哪些 CaloricLevel 。我们可以把 groupingBy 和 mapping 收集器结合起来，如下所示：
+         */
+        Map<Dish.Type, Set<CaloricLevel>> caloricLevelsByType =
+                menu.stream().collect(
+                        groupingBy(Dish::getType, mapping(
+                                dish -> {
+                                    if (dish.getCalories() <= 400) return CaloricLevel.DIET;
+                                    else if (dish.getCalories() <= 700) return CaloricLevel.NORMAL;
+                                    else return CaloricLevel.FAT;
+                                },
+                                toSet())));
+        // {OTHER=[DIET, NORMAL], FISH=[DIET, NORMAL], MEAT=[FAT, DIET, NORMAL]}
+        System.out.println(caloricLevelsByType);
+    }
+
+    /**
+     * 测试分区
+     */
+    @Test
+    public void testPartitioningBy() {
+
+        /**
+         * 分区是分组的特殊情况：由一个谓词（返回一个布尔值的函数）作为分类函数，它称分区函
+         * 数。分区函数返回一个布尔值，这意味着得到的分组 Map 的键类型是 Boolean ，于是它最多可以
+         * 分为两组—— true 是一组， false 是一组。例如，如果你是素食者或是请了一位素食的朋友来共
+         * 进晚餐，可能会想要把菜单按照素食和非素食分开：
+         */
+        Map<Boolean, List<Dish>> partitionedMenu = menu.stream().collect(partitioningBy(Dish::isVegetarian));
+        // {false=[pork, beef, chicken, prawns, salmon], true=[french fries, rice, season fruit, pizza]}
+        System.out.println(partitionedMenu);
+
+        List<Dish> vegetarianDishes = partitionedMenu.get(true);
+        // [french fries, rice, season fruit, pizza]
+        System.out.println(vegetarianDishes);
+
+        List<Dish> vegetarianDishes2 = menu.stream().filter(Dish::isVegetarian).collect(toList());
+        // [french fries, rice, season fruit, pizza]
+        System.out.println(vegetarianDishes2);
     }
 }
