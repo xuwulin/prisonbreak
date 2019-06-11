@@ -942,4 +942,213 @@ public class PrisonbreakApplicationTests {
         // [french fries, rice, season fruit, pizza]
         System.out.println(vegetarianDishes2);
     }
+
+    // ===================================================Optional=============================================
+
+    /**
+     * 构建Person / Car / Insurance 的数据模型
+     */
+    public class Person {
+        private Optional<Car> car;
+
+        public Optional<Car> getCar() {
+            return car;
+        }
+    }
+
+    public class Car {
+        private Optional<Insurance> insurance;
+
+        public Optional<Insurance> getInsurance() {
+            return insurance;
+        }
+    }
+
+    public class Insurance {
+        private String name;
+
+        public String getName() {
+            return name;
+        }
+    }
+
+    /**
+     * 创建 Optional 对象
+     */
+    @Test
+    public void testOptional() {
+        /**
+         * 1. 声明一个空的 Optional
+         * 正如前文已经提到，你可以通过静态工厂方法 Optional.empty ，创建一个空的 Optional对象：
+         */
+        Optional<Car> optCar = Optional.empty();
+
+        /**
+         * 2. 依据一个非空值创建 Optional
+         * 你还可以使用静态工厂方法 Optional.of ，依据一个非空值创建一个 Optional 对象：
+         * 如果 car 是一个 null ，这段代码会立即抛出一个 NullPointerException ，而不是等到你
+         * 试图访问 car 的属性值时才返回一个错误。
+         */
+//        Car car = null;
+//        Optional<Car> optCar2 = Optional.of(car); // java.lang.NullPointerException
+//        System.out.println(optCar2);
+
+        Optional<Car> optCar3 = Optional.of(new Car());
+        System.out.println(optCar3);
+
+        /**
+         * 3. 可接受 null 的 Optional
+         * 最后，使用静态工厂方法 Optional.ofNullable ，你可以创建一个允许 null 值的 Optional对象：
+         * 如果 car 是 null ，那么得到的 Optional 对象就是个空对象
+         */
+        Car optCar4 = null;
+        Optional<Car> optCar5 = Optional.ofNullable(optCar4);
+        System.out.println(optCar5); // Optional.empty
+
+        /**
+         * 使用 map 从 Optional 对象中提取和转换值
+         *
+         * 从对象中提取信息是一种比较常见的模式。比如，你可能想要从 insurance 公司对象中提取
+         * 公司的名称。提取名称之前，你需要检查 insurance 对象是否为 null ，代码如下所示：
+         */
+        Insurance insurance = new Insurance();
+        String name = null;
+        if (insurance != null) {
+            name = insurance.getName();
+        }
+
+        Optional<Insurance> optInsurance = Optional.ofNullable(insurance);
+        Optional<String> name2 = optInsurance.map(Insurance::getName);
+        System.out.println(name2); // Optional.empty
+
+        /**
+         * 使用 flatMap 链接 Optional 对象
+         *
+         * 由于我们刚刚学习了如何使用 map ，你的第一反应可能是我们可以利用 map 重写之前的代码，如下所示：
+         */
+        Person person = new Person();
+        Optional<Person> optPerson = Optional.of(person);
+        /**
+         * 为什么无法通过编译呢？
+         *  optPerson 是 Optional<Person> 类型的变量， 调用 map 方法应该没有问题。
+         *  但 getCar 返回的是一个 Optional<Car> 类型的对象（
+         *  ，这意味着 map 操作的结果是一个 Optional<Optional<Car>> 类型的对象。
+         *  因此，它对 getInsurance 的调用是非法的，因为最外层的 optional 对象包含了另一个 optional
+         * 对象的值，而它当然不会支持 getInsurance 方法
+         */
+//        Optional<String> name = optPerson.map(Person::getCar) .map(Car::getInsurance).map(Insurance::getName); // 无法编译
+    }
+
+    /**
+     * 我们该如何解决这个问题呢？让我们再回顾一下你刚刚在流上使用过的模式：
+     * flatMap 方法。使用流时， flatMap 方法接受一个函数作为参数，这个函数的返回值是另一个流。
+     * 这个方法会应用到流中的每一个元素，最终形成一个新的流的流。但是 flagMap 会用流的内容替
+     * 换每个新生成的流。换句话说，由方法生成的各个流会被合并或者扁平化为一个单一的流。这里
+     * 你希望的结果其实也是类似的，但是你想要的是将两层的 optional 合并为一个
+     */
+    public String getCarInsuranceName(Optional<Person> person) {
+        return person.flatMap(Person::getCar)
+                .flatMap(Car::getInsurance)
+                .map(Insurance::getName)
+                .orElse("Unknown"); // 如果 Optional 的结果值为空，设置默认值
+    }
+
+    /**
+     * 默认行为及解引用 Optional 对象
+     * 我们决定采用 orElse 方法读取这个变量的值，使用这种方式你还可以定义一个默认值，遭
+     * 遇空的 Optional 变量时，默认值会作为该方法的调用返回值。 Optional 类提供了多种方法读取
+     * Optional 实例中的变量值。
+     *  get() 是这些方法中最简单但又最不安全的方法。如果变量存在，它直接返回封装的变量
+     * 值，否则就抛出一个 NoSuchElementException 异常。所以，除非你非常确定 Optional
+     * 变量一定包含值，否则使用这个方法是个相当糟糕的主意。此外，这种方式即便相对于
+     * 嵌套式的 null 检查，也并未体现出多大的改进。
+     *  orElse(T other) 是我们在代码清单10-5中使用的方法，正如之前提到的，它允许你在
+     * Optional 对象不包含值时提供一个默认值。
+     *  orElseGet(Supplier<? extends T> other) 是 orElse 方法的延迟调用版， Supplier
+     * 方法只有在 Optional 对象不含值时才执行调用。如果创建默认值是件耗时费力的工作，
+     * 你应该考虑采用这种方式（借此提升程序的性能），或者你需要非常确定某个方法仅在
+     * Optional 为空时才进行调用，也可以考虑该方式（这种情况有严格的限制条件）。
+     *  orElseThrow(Supplier<? extends X> exceptionSupplier) 和 get 方法非常类似，
+     * 它们遭遇 Optional 对象为空时都会抛出一个异常，但是使用 orElseThrow 你可以定制希
+     * 望抛出的异常类型。
+     *  ifPresent(Consumer<? super T>) 让你能在变量值存在时执行一个作为参数传入的
+     * 方法，否则就不进行任何操作。
+     * Optional 类和 Stream 接口的相似之处，远不止 map 和 flatMap 这两个方法。还有第三个方
+     * 法 filter ，它的行为在两种类型之间也极其相似
+     */
+
+    /**
+     * 现在，我们假设你有这样一个方法，它接受一个 Person 和一个 Car 对象，并以此为条件对外
+     * 部提供的服务进行查询，通过一些复杂的业务逻辑，试图找到满足该组合的最便宜的保险公司：
+     *
+     * @param person
+     * @param car
+     * @return
+     */
+    public Insurance findCheapestInsurance(Person person, Car car) {
+        // 不同的保险公司提供的查询服务
+        // 对比所有数据
+        return new Insurance();
+    }
+
+    /**
+     * 以不解包的方式组合两个 Optional 对象
+     * <p>
+     * 这段代码中，你对第一个 Optional 对象调用 flatMap 方法，如果它是个空值，传递给它
+     * 的Lambda表达式不会执行，这次调用会直接返回一个空的 Optional 对象。反之，如果 person
+     * 对象存在，这次调用就会将其作为函数 Function 的输入，并按照与 flatMap 方法的约定返回
+     * 一个 Optional<Insurance> 对象。这个函数的函数体会对第二个 Optional 对象执行 map 操
+     * 作，如果第二个对象不包含 car ，函数 Function 就返回一个空的 Optional 对象，整个
+     * nullSafeFindCheapestInsuranc 方法的返回值也是一个空的 Optional 对象。最后，如果
+     * person 和 car 对象都存在，作为参数传递给 map 方法的Lambda表达式能够使用这两个值安全
+     * 地调用原始的 findCheapestInsurance 方法，完成期望的操作
+     */
+    public Optional<Insurance> nullSafeFindCheapestInsurance(Optional<Person> person, Optional<Car> car) {
+        return person.flatMap(p -> car.map(c -> findCheapestInsurance(p, c)));
+    }
+
+    @Test
+    public void testOptional2() {
+        /**
+         * 使用 filter 剔除特定的值
+         *
+         * 你经常需要调用某个对象的方法，查看它的某些属性。比如，你可能需要检查保险公司的名
+         * 称是否为“Cambridge-Insurance”。为了以一种安全的方式进行这些操作，你首先需要确定引用指
+         * 向的 Insurance 对象是否为 null ，之后再调用它的 getName 方法，如下所示：
+         */
+        Insurance insurance = new Insurance();
+        if (insurance != null && "CambridgeInsurance".equals(insurance.getName())) {
+            System.out.println("ok");
+        }
+
+        /**
+         * 使用 Optional 对象的 filter 方法，这段代码可以重构如下：
+         *
+         * filter 方法接受一个谓词作为参数。如果 Optional 对象的值存在，并且它符合谓词的条件，
+         * filter 方法就返回其值；否则它就返回一个空的 Optional 对象。如果你还记得我们可以将
+         * Optional 看成最多包含一个元素的 Stream 对象，这个方法的行为就非常清晰了。如果 Optional
+         * 对象为空，它不做任何操作，反之，它就对 Optional 对象中包含的值施加谓词操作。如果该操
+         * 作的结果为 true ，它不做任何改变，直接返回该 Optional 对象，否则就将该值过滤掉，将
+         * Optional 的值置空。
+         */
+        Optional<Insurance> optInsurance2 = Optional.of(insurance);
+        optInsurance2.filter(insurance2 -> "CambridgeInsurance".equals(insurance.getName()))
+                .ifPresent(x -> System.out.println("ok"));
+
+        /**
+         * empty：返回一个空的 Optional 实例
+         * filter：如果值存在并且满足提供的谓词，就返回包含该值的 Optional 对象；否则返回一个空的Optional 对象
+         * flatMap：如果值存在，就对该值执行提供的 mapping 函数调用，返回一个 Optional 类型的值，否则就返回一个空的 Optional 对象
+         * get：如果该值存在，将该值用 Optional 封装返回，否则抛出一个 NoSuchElementException 异常
+         * ifPresent 如果值存在，就执行使用该值的方法调用，否则什么也不做
+         * isPresent 如果值存在就返回 true ，否则返回 false
+         * map 如果值存在，就对该值执行提供的 mapping函数调用
+         * of 将指定值用 Optional 封装之后返回，如果该值为 null ，则抛出一个 NullPointerException异常
+         * ofNullable 将指定值用 Optional 封装之后返回，如果该值为 null ，则返回一个空的 Optional 对象
+         * orElse 如果有值则将其返回，否则返回一个默认值
+         * orElseGet 如果有值则将其返回，否则返回一个由指定的 Supplier 接口生成的值
+         * orElseThrow 如果有值则将其返回，否则抛出一个由指定的 Supplier 接口生成的异常
+         */
+    }
+
 }
