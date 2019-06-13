@@ -127,6 +127,13 @@ public class SysUserController {
         return new ResponseResult<>(userIPage);
     }
 
+    @GetMapping("/getPageByXml")
+    @ApiOperation("xml方式分页查询")
+    public ResponseResult<IPage<SysUser>> getPageByXml(Integer page, Integer pageSize, String name) {
+        IPage<SysUser> userIPage = sysUserService.getPageByXml(page, pageSize, name);
+        return new ResponseResult<>(userIPage);
+    }
+
     @GetMapping("/listContentByDynamicTableName")
     @ApiOperation("根据表名获取该表内容（动态传入表名）")
     public ResponseResult<List<Map<String, Object>>> listContentByDynamicTableName(String tableName) {

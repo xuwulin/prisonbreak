@@ -1,6 +1,7 @@
 package com.xwl.prisonbreak.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xwl.prisonbreak.model.po.SysUser;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -42,4 +43,6 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      */
     @Select("SELECT * FROM ${tableName}")
     List<Map<String, Object>> listContentByDynamicTableName(@Param("tableName") String tableName);
+
+    List<SysUser> findByNameUseXml(@Param("name") String name, Page page);
 }

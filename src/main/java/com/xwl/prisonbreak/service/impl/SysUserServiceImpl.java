@@ -1,8 +1,9 @@
 package com.xwl.prisonbreak.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.xwl.prisonbreak.model.po.SysUser;
 import com.xwl.prisonbreak.mapper.SysUserMapper;
+import com.xwl.prisonbreak.model.po.SysUser;
 import com.xwl.prisonbreak.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,6 +49,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public List<Map<String, Object>> listContentByDynamicTableName(String tableName) {
         List<Map<String, Object>> res = sysUserMapper.listContentByDynamicTableName(tableName);
+        return res;
+    }
+
+    @Override
+    public Page<SysUser> getPageByXml(Integer page, Integer pageSize, String name) {
+        Page<SysUser> pageable = new Page<>(page, pageSize);
+        List<SysUser> byNameUseXml = sysUserMapper.findByNameUseXml(name, pageable);
+        Page<SysUser> res = pageable.setRecords(byNameUseXml);
         return res;
     }
 

@@ -1,5 +1,6 @@
 package com.xwl.prisonbreak.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xwl.prisonbreak.model.po.SysUser;
 
@@ -35,4 +36,6 @@ public interface SysUserService extends IService<SysUser> {
     Integer insert(SysUser sysUser);
 
     List<Map<String, Object>> listContentByDynamicTableName(String tableName);
+
+    IPage<SysUser> getPageByXml(Integer page, Integer pageSize, String name);
 }
