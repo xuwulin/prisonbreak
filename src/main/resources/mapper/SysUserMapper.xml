@@ -26,14 +26,14 @@
     </sql>
 
     <!-- 根据id查找 -->
-    <!--  AND t.username = '贾宝玉' -->
     <select id="findByIdUseXml" resultMap="BaseResultMap">
         SELECT <include refid="Base_Column_List"/> FROM sys_user AS t WHERE t.id = #{id}
     </select>
 
     <select id="findByNameUseXml" resultType="com.xwl.prisonbreak.model.po.SysUser">
-        <!-- like方式一 -->
+        <!-- like方式一：使用CONCA()函数 -->
         <!--select <include refid="Base_Column_List"/> FROM sys_user AS t WHERE t.username LIKE CONCAT("%", #{name}, "%")-->
+
         <!-- like方式二；使用bind标签 -->
         <bind name="username" value="'%' + name + '%'" />
         SELECT <include refid="Base_Column_List"/> FROM sys_user AS t WHERE t.username LIKE #{username}
