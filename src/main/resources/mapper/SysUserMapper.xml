@@ -30,6 +30,7 @@
         SELECT <include refid="Base_Column_List"/> FROM sys_user AS t WHERE t.id = #{id}
     </select>
 
+    <!-- 根据username模糊查找 -->
     <select id="findByNameUseXml" resultType="com.xwl.prisonbreak.model.po.SysUser">
         <!-- like方式一：使用CONCA()函数 -->
         <!--select <include refid="Base_Column_List"/> FROM sys_user AS t WHERE t.username LIKE CONCAT("%", #{name}, "%")-->
