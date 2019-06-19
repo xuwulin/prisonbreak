@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.xwl.prisonbreak.aop.CustomAopAnnotation;
 import com.xwl.prisonbreak.model.po.SysUser;
 import com.xwl.prisonbreak.model.vo.ResponseResult;
 import com.xwl.prisonbreak.service.SysUserService;
@@ -40,6 +41,7 @@ public class SysUserController {
         return sysUser;
     }
 
+    @CustomAopAnnotation(param = "id", detail = "参数id")
     @GetMapping("/findByIdUseXml")
     @ApiOperation("根据id查询，通过写mapper.xml的方式实现")
     public SysUser findByIdUseXml(String id) {
@@ -116,7 +118,7 @@ public class SysUserController {
     public IPage<SysUser> getPageByWrapper(Integer page, Integer pageSize) {
         // 真分页
         // 执行sql:FROM sys_user WHERE deleted=0 AND username LIKE ? LIMIT ?,?
-        IPage<SysUser> userIPage = sysUserService.page(new Page<>(1, 10), new QueryWrapper<SysUser>().likeRight("username", "柳"));
+        IPage<SysUser> userIPage = sysUserService.page(new Page<>(page, pageSize), new QueryWrapper<SysUser>().likeRight("username", "柳"));
         return userIPage;
     }
 
