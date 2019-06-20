@@ -2,8 +2,8 @@ package com.xwl.prisonbreak.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xwl.prisonbreak.exception.BusinessException;
-import com.xwl.prisonbreak.model.po.FileInfo;
-import com.xwl.prisonbreak.model.vo.ResponseInfo;
+import com.xwl.prisonbreak.pojo.po.FileInfo;
+import com.xwl.prisonbreak.pojo.vo.ResponseInfo;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;

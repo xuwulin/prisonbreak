@@ -2,7 +2,7 @@ package com.xwl.prisonbreak.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.xwl.prisonbreak.model.po.SysUser;
+import com.xwl.prisonbreak.pojo.po.SysUser;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 

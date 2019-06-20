@@ -1,4 +1,4 @@
-package com.xwl.prisonbreak.model.vo;
+package com.xwl.prisonbreak.pojo.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.ImmutableMap;

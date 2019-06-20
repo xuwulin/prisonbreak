@@ -1,6 +1,6 @@
-package com.xwl.prisonbreak.model.vo;
+package com.xwl.prisonbreak.pojo.vo;
 
-import com.xwl.prisonbreak.model.enums.ResponseTypes;
+import com.xwl.prisonbreak.pojo.enums.ResponseTypes;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;

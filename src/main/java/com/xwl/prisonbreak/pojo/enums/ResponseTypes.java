@@ -1,4 +1,4 @@
-package com.xwl.prisonbreak.model.enums;
+package com.xwl.prisonbreak.pojo.enums;
 
 /**
  * @Auther: xwl

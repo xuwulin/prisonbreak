@@ -1,4 +1,4 @@
-package com.xwl.prisonbreak.model.po;
+package com.xwl.prisonbreak.pojo.po;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;

@@ -2,7 +2,7 @@ package com.xwl.prisonbreak.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.xwl.prisonbreak.model.po.SysUser;
+import com.xwl.prisonbreak.pojo.po.SysUser;
 
 import java.util.List;
 import java.util.Map;

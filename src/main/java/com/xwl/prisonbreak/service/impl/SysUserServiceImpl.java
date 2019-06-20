@@ -3,7 +3,7 @@ package com.xwl.prisonbreak.service.impl;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xwl.prisonbreak.mapper.SysUserMapper;
-import com.xwl.prisonbreak.model.po.SysUser;
+import com.xwl.prisonbreak.pojo.po.SysUser;
 import com.xwl.prisonbreak.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.xwl.prisonbreak.model.vo;
+package com.xwl.prisonbreak.pojo.vo;
 
 
 import com.alibaba.excel.annotation.ExcelProperty;

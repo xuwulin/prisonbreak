@@ -6,7 +6,7 @@
     <!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> -->
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.xwl.prisonbreak.model.po.SysUser">
+    <resultMap id="BaseResultMap" type="com.xwl.prisonbreak.pojo.po.SysUser">
         <id column="id" property="id" />
         <result column="username" property="username" />
         <result column="nickname" property="nickname" />
@@ -31,7 +31,7 @@
     </select>
 
     <!-- 根据username模糊查找 -->
-    <select id="findByNameUseXml" resultType="com.xwl.prisonbreak.model.po.SysUser">
+    <select id="findByNameUseXml" resultType="com.xwl.prisonbreak.pojo.po.SysUser">
         <!-- like方式一：使用CONCA()函数 -->
         <!--select <include refid="Base_Column_List"/> FROM sys_user AS t WHERE t.username LIKE CONCAT("%", #{name}, "%")-->
 
