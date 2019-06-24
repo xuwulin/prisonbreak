@@ -10,7 +10,7 @@ import java.util.UUID;
  * @Date: 2019/5/15 17:02
  * @Description: UUID工具类
  */
-public class UUIDUtil {
+public class UUIDUtils {
     private static final String[] chars = new String[]{"0", "1", "2", "3", "4", "5",
             "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
             "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x",

@@ -56,7 +56,7 @@ public class FileUtils {
         if (length == null) {
             length = 16;
         }
-        return UUIDUtil.getUid(prefix, length);
+        return UUIDUtils.getUid(prefix, length);
     }
 
     /**
