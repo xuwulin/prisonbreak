@@ -57,6 +57,7 @@ public class GZIPUtils {
 			gzip = new GZIPOutputStream(out);
 			gzip.write(str.getBytes(encoding));
 			gzip.close();
+			out.close();
 		} catch (IOException e) {
 			log.error("压缩字符串失败", e);
 		}
@@ -82,6 +83,9 @@ public class GZIPUtils {
 			while ((n = ungzip.read(buffer)) >= 0) {
 				out.write(buffer, 0, n);
 			}
+			ungzip.close();
+			in.close();
+			out.close();
 		} catch (IOException e) {
 			log.error("解压字符串失败", e);
 		}
