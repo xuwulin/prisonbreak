@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.Version;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,12 +25,14 @@ public class BaseEntity implements Serializable {
      * 创建时间
      */
     @TableField(value = "create_time",fill = FieldFill.INSERT)
+    @ApiModelProperty(value = "创建时间", name = "createTime")
     private Date createTime;
 
     /**
      * 修改时间
      */
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+    @ApiModelProperty(value = "修改时间", name = "updateTime")
     private Date updateTime;
 
     /**
@@ -37,6 +40,7 @@ public class BaseEntity implements Serializable {
      */
     @TableField("deleted")
     @TableLogic
+    @ApiModelProperty(value = "是否删除", name = "deleted")
     private Integer deleted;
 
     /**
@@ -44,5 +48,6 @@ public class BaseEntity implements Serializable {
      */
     @Version
     @TableField("update_version")
+    @ApiModelProperty(value = "乐观锁", name = "updateVersion")
     private Integer updateVersion;
 }
