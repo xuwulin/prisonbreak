@@ -60,5 +60,17 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         return res;
     }
 
+    @Override
+    public int updateByIdXml(String id, String nickname) {
+        int res = sysUserMapper.updateByIdXml(id, nickname);
+        return res;
+    }
+
+    @Override
+    public List<SysUser> getByIds(List<String> ids) {
+        List<SysUser> byIds = sysUserMapper.getByIds(ids);
+        return byIds;
+    }
+
 
 }

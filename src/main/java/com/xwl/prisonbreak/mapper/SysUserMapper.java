@@ -45,4 +45,19 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
     List<Map<String, Object>> listContentByDynamicTableName(@Param("tableName") String tableName);
 
     List<SysUser> findByNameUseXml(@Param("name") String name, Page page);
+
+    /**
+     * 根据id修改，xml方式
+     * @param id
+     * @param nickname
+     * @return
+     */
+    int updateByIdXml(@Param("id") String id, @Param("nickname") String nickname);
+
+    /**
+     * 使用<foreach></foreach>标签
+     * @param ids
+     * @return
+     */
+    List<SysUser> getByIds(@Param("ids") List<String> ids);
 }

@@ -7,17 +7,17 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.xwl.prisonbreak.pojo.po.SysUser">
-        <id column="id" property="id" />
-        <result column="username" property="username" />
-        <result column="nickname" property="nickname" />
-        <result column="password" property="password" />
-        <result column="role_id" property="roleId" />
-        <result column="dept_id" property="deptId" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
-        <result column="deleted" property="deleted" />
-        <result column="email" property="email" />
-        <result column="phone" property="phone" />
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="nickname" property="nickname"/>
+        <result column="password" property="password"/>
+        <result column="role_id" property="roleId"/>
+        <result column="dept_id" property="deptId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+        <result column="email" property="email"/>
+        <result column="phone" property="phone"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -27,17 +27,42 @@
 
     <!-- 根据id查找 -->
     <select id="findByIdUseXml" resultMap="BaseResultMap">
-        SELECT <include refid="Base_Column_List"/> FROM sys_user AS t WHERE t.id = #{id}
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_user AS t WHERE t.id = #{id}
     </select>
 
     <!-- 根据username模糊查找 -->
     <select id="findByNameUseXml" resultType="com.xwl.prisonbreak.pojo.po.SysUser">
-        <!-- like方式一：使用CONCA()函数 -->
+        <!-- like方式一：使用CONCAT()函数 -->
         <!--select <include refid="Base_Column_List"/> FROM sys_user AS t WHERE t.username LIKE CONCAT("%", #{name}, "%")-->
 
-        <!-- like方式二；使用bind标签 -->
-        <bind name="username" value="'%' + name + '%'" />
-        SELECT <include refid="Base_Column_List"/> FROM sys_user AS t WHERE t.username LIKE #{username}
+        <!-- like方式二；使用bind标签,推荐使用 -->
+        <bind name="username" value="'%' + name + '%'"/>
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_user AS t WHERE t.username LIKE #{username}
+    </select>
+
+    <!-- 根据id修改，要想修改update_time字段，必须显示声明 -->
+    <update id="updateByIdXml">
+        <!-- UPDATE sys_user AS t SET t.nickname = #{nickname}, t.update_time = #{updateDate} WHERE t.id = #{id} -->
+        UPDATE sys_user AS t SET t.nickname = #{nickname} WHERE t.id = #{id}
+    </update>
+
+    <!-- 使用<foreach></foreach>标签 -->
+    <select id="getByIds" resultType="com.xwl.prisonbreak.pojo.po.SysUser">
+        <!-- mybatis不支持这种写法，必须使用 <foreach></foreach>标签 -->
+        <!--SELECT <include refid="Base_Column_List"/> FROM sys_user AS t WHERE t.id IN #{ids}-->
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_user AS t
+        WHERE t.id IN
+        <if test="ids != null and ids.size() != 0">
+            <foreach item='item' index='index' collection='ids' open='(' separator=',' close=')'>
+                #{item}
+            </foreach>
+        </if>
     </select>
 
 </mapper>

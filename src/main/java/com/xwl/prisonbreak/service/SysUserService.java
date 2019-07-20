@@ -35,7 +35,29 @@ public interface SysUserService extends IService<SysUser> {
      */
     Integer insert(SysUser sysUser);
 
+    /**
+     * 根据动态表名获取字段信息
+     * @param tableName
+     * @return
+     */
     List<Map<String, Object>> listContentByDynamicTableName(String tableName);
 
+    /**
+     * xml的方式分页查询
+     * @param page
+     * @param pageSize
+     * @param name
+     * @return
+     */
     IPage<SysUser> getPageByXml(Integer page, Integer pageSize, String name);
+
+    /**
+     * 根据id更新，测试修改字段能否赋值
+     * @param id
+     * @param nickname
+     * @return
+     */
+    int updateByIdXml(String id, String nickname);
+
+    List<SysUser> getByIds(List<String> ids);
 }

@@ -227,5 +227,18 @@ public class SysUserController {
         return true;
     }
 
+    @GetMapping("/updateByIdXml")
+    @ApiOperation(value = "根据id修改,这种方式要想修改系统字段update_time，只有在xml中显示声明")
+    public ResponseResult updateByIdXml(String id, String nickName) {
+        int res = sysUserService.updateByIdXml(id, nickName);
+        return new ResponseResult(res);
+    }
+
+    @PostMapping("/getByIds")
+    @ApiOperation(value = "根据ids查询")
+    public ResponseResult getByIds(@RequestBody List<String> ids) {
+        List<SysUser> byIds = sysUserService.getByIds(ids);
+        return new ResponseResult(byIds);
+    }
 
 }
