@@ -14,8 +14,9 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -31,7 +32,7 @@ import static java.util.stream.Collectors.toList;
 @Slf4j
 public class ScheduleConfig implements SchedulingConfigurer {
 
-    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Autowired
     private TimedTaskService timedTaskService;
@@ -51,7 +52,7 @@ public class ScheduleConfig implements SchedulingConfigurer {
                     .collect(toList());
         }
 
-        log.info("定时任务启动,预计启动任务数量：" + tasks.size() + "; time=" + sdf.format(new Date()));
+        log.info("定时任务启动,预计启动任务数量：" + tasks.size() + "; time=" + LocalDateTime.now().format(dtf));
 
         int count = 0;
         if (tasks != null && tasks.size() > 0) {
@@ -65,7 +66,7 @@ public class ScheduleConfig implements SchedulingConfigurer {
                 }
             }
         }
-        log.info("定时任务实际启动数量：" + count + "; time=" + sdf.format(new Date()));
+        log.info("定时任务实际启动数量：" + count + "; time=" + LocalDateTime.now().format(dtf));
     }
 
     /**
@@ -102,6 +103,11 @@ public class ScheduleConfig implements SchedulingConfigurer {
     }
 
     private void excute(TimedTask task) {
+        LocalDate localDate = LocalDate.now();
+        System.out.println(localDate);
+        LocalDate localDate1 = localDate.minusDays(2);
+        System.out.println(localDate1);
+
         System.out.println("执行任务名称" + task.getTaskName());
     }
 }
