@@ -24,7 +24,7 @@ import static java.util.stream.Collectors.toList;
 /**
  * @Auther: xwl
  * @Date: 2019/7/25 17:14
- * @Description:
+ * @Description: 读取数据库配置，执行定时任务
  */
 @Configuration
 @EnableScheduling
