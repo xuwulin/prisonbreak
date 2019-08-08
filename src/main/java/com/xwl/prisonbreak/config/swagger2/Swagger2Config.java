@@ -26,7 +26,7 @@ public class Swagger2Config {
                 .apiInfo(apiInfo())
                 .select()
                 // 扫描包路径（controller层）
-                .apis(RequestHandlerSelectors.basePackage("com.xwl.prisonbreak.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.xwl.prisonbreak.michael.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }

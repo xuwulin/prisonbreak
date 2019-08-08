@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xwl.prisonbreak.mapper.SysUserMapper">
+<mapper namespace="com.xwl.prisonbreak.michael.mapper.SysUserMapper">
 
     <!-- 开启二级缓存 -->
     <!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> -->
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.xwl.prisonbreak.pojo.po.SysUser">
+    <resultMap id="BaseResultMap" type="com.xwl.prisonbreak.michael.entity.SysUser">
         <id column="id" property="id"/>
         <result column="username" property="username"/>
         <result column="nickname" property="nickname"/>
@@ -33,7 +33,7 @@
     </select>
 
     <!-- 根据username模糊查找 -->
-    <select id="findByNameUseXml" resultType="com.xwl.prisonbreak.pojo.po.SysUser">
+    <select id="findByNameUseXml" resultType="com.xwl.prisonbreak.michael.entity.SysUser">
         <!-- like方式一：使用CONCAT()函数 -->
         <!--select <include refid="Base_Column_List"/> FROM sys_user AS t WHERE t.username LIKE CONCAT("%", #{name}, "%")-->
 
@@ -51,7 +51,7 @@
     </update>
 
     <!-- 使用<foreach></foreach>标签 -->
-    <select id="getByIds" resultType="com.xwl.prisonbreak.pojo.po.SysUser">
+    <select id="getByIds" resultType="com.xwl.prisonbreak.michael.entity.SysUser">
         <!-- mybatis不支持这种写法，必须使用 <foreach></foreach>标签 -->
         <!--SELECT <include refid="Base_Column_List"/> FROM sys_user AS t WHERE t.id IN #{ids}-->
         SELECT

@@ -1,6 +1,6 @@
 package com.xwl.prisonbreak.exception;
 
-import com.xwl.prisonbreak.pojo.vo.ResponseInfo;
+import com.xwl.prisonbreak.common.vo.ResponseInfo;
 
 /**
  * @Auther: xwl

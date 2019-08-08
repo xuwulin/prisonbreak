@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.4.RELEASE</version>
+        <version>2.1.7.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.xwl.prsonBreak</groupId>
@@ -67,14 +67,14 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.1.1</version>
+            <version>3.1.2</version>
         </dependency>
 
         <!-- 引入代码生成器依赖 -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
-            <version>3.1.1</version>
+            <version>3.1.2</version>
         </dependency>
 
         <!-- 添加模板引擎依赖 MyBatis-Plus 支持 Velocity（默认）、Freemarker、Beetl， -->
@@ -83,6 +83,13 @@
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity-engine-core</artifactId>
             <version>2.1</version>
+        </dependency>
+
+        <!-- 模板引擎Freemarker -->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.28</version>
         </dependency>
 
         <!-- 该功能依赖 p6spy 组件，完美的输出打印 SQL 及执行时长 3.1.0 以上版本，耗性能，生产环境不建议使用 -->
@@ -123,7 +130,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>1.1.14</version>
+            <version>1.1.16</version>
         </dependency>
 
         <!-- 引入fastjson依赖 -->

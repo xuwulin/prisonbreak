@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 // @EnableTransactionManagement 开启事务管理
 @EnableTransactionManagement
 @Configuration
-@MapperScan("com.xwl.prisonbreak.mapper")
+@MapperScan("com.xwl.prisonbreak.michael.mapper")
 public class MybatisPlusConfig {
 
     /**

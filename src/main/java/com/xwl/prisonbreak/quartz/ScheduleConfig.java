@@ -1,8 +1,8 @@
 package com.xwl.prisonbreak.quartz;
 
 import com.alibaba.fastjson.JSON;
-import com.xwl.prisonbreak.pojo.po.TimedTask;
-import com.xwl.prisonbreak.service.TimedTaskService;
+import com.xwl.prisonbreak.michael.entity.TimedTask;
+import com.xwl.prisonbreak.michael.service.TimedTaskService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,6 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -103,12 +102,7 @@ public class ScheduleConfig implements SchedulingConfigurer {
     }
 
     private void excute(TimedTask task) {
-        LocalDate localDate = LocalDate.now();
-        System.out.println(localDate);
-        LocalDate localDate1 = localDate.minusDays(2);
-        System.out.println(localDate1);
-
-        System.out.println("执行任务名称" + task.getTaskName());
+        System.out.println("执行任务名称" + task.getTaskName() + "，执行时间：" + LocalDateTime.now().format(dtf));
     }
 }
 
