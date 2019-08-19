@@ -2,11 +2,13 @@ package com.xwl.prisonbreak.michael.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.xwl.prisonbreak.common.util.FileUtils;
+import com.xwl.prisonbreak.common.util.PdfUtil;
+import com.xwl.prisonbreak.common.vo.ResponseInfo;
+import com.xwl.prisonbreak.common.vo.ResponseResult;
 import com.xwl.prisonbreak.exception.BusinessException;
 import com.xwl.prisonbreak.michael.entity.FileInfo;
-import com.xwl.prisonbreak.common.vo.ResponseInfo;
 import com.xwl.prisonbreak.michael.service.FileInfoService;
-import com.xwl.prisonbreak.common.util.FileUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -192,5 +194,12 @@ public class FileInfoController {
         }catch (BusinessException e){
             return e.getResponse();
         }
+    }
+
+    @GetMapping("/imageToPdf")
+    @ApiOperation("将图片转换为PDF")
+    public ResponseResult imageToPdf(String imageDirPath, String pdfDirPath, String pdfFileName) {
+        PdfUtil.imagesToPdf(pdfDirPath, pdfFileName, imageDirPath);
+        return new ResponseResult("转换成功！");
     }
 }
