@@ -3,7 +3,7 @@ package com.xwl.prisonbreak.michael.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xwl.prisonbreak.common.util.FileUtils;
-import com.xwl.prisonbreak.common.util.PdfUtil;
+import com.xwl.prisonbreak.common.util.PdfUtils;
 import com.xwl.prisonbreak.common.vo.ResponseInfo;
 import com.xwl.prisonbreak.common.vo.ResponseResult;
 import com.xwl.prisonbreak.exception.BusinessException;
@@ -199,7 +199,7 @@ public class FileInfoController {
     @GetMapping("/imageToPdf")
     @ApiOperation("将图片转换为PDF")
     public ResponseResult imageToPdf(String imageDirPath, String pdfDirPath, String pdfFileName) {
-        PdfUtil.imagesToPdf(pdfDirPath, pdfFileName, imageDirPath);
+        PdfUtils.imagesToPdf(pdfDirPath, pdfFileName, imageDirPath);
         return new ResponseResult("转换成功！");
     }
 }
