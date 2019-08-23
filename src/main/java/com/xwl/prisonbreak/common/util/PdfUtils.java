@@ -13,7 +13,7 @@ import java.io.FileOutputStream;
  * @date 2019-08-19 19:45
  * @description
  */
-public class PdfUtil {
+public class PdfUtils {
 
     /**
      * @param filePath   生成pdf文件夹路径
