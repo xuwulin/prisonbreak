@@ -462,7 +462,7 @@
                         <w:rFonts w:hint="fareast"/>
                         <w:lang w:val="EN-US" w:fareast="ZH-CN"/>
                     </w:rPr>
-                    <w:t>表名：${maps.tableName}    主键：${maps.primary_key}</w:t>
+                    <w:t>表名：${maps.tableName}    主键：${maps.primaryKey}</w:t>
                 </w:r>
             </w:p>
             <w:p>
