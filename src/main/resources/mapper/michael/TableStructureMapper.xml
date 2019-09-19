@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xwl.prisonbreak.michael.mapper.TableStructureMapper">
+
+    <!-- 开启二级缓存 -->
+    <!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> -->
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BASeResultMap" type="com.xwl.prisonbreak.common.util.tableStructure2word.TableStructure">
+        <result column="TABLENAME" property="tableName"/>
+        <result column="TABLENAMEDESC" property="tableNameDesc"/>
+        <result column="COLUMN" property="column"/>
+        <result column="COLUMNNAME" property="columnName"/>
+        <result column="COLUMNTYPE" property="columnType"/>
+        <result column="PRIMARY" property="primary"/>
+        <result column="NOTNULL" property="notnull"/>
+        <result column="DEFAULTVAL" property="defaultVal"/>
+    </resultMap>
+
+    <!-- 获取所有表结构：该SQL只适用于Oracle、DM数据库 -->
+    <select id="listTableStructure" resultType="com.xwl.prisonbreak.common.util.tableStructure2word.TableStructure">
+        SELECT a.TABLE_NAME AS "TABLENAME",
+	           d.COMMENTS AS "TABLENAMEDESC",
+               b.column_name AS "COLUMN",
+               a.comments AS "COLUMNNAME",
+               CASE WHEN b.DATA_TYPE='TIMESTAMP(6)' THEN 'TIMESTAMP'
+                    WHEN b.DATA_TYPE='DATE' THEN 'DATE'
+                    WHEN b.DATA_TYPE='VARCHAR2' THEN 'VARCHAR' || '(' || b.DATA_LENGTH || ')'
+                    WHEN b.DATA_TYPE='NUMBER' AND instr(a.COMMENTS, '万') > 1 THEN 'NUMBER(14,6)'
+                    WHEN b.DATA_TYPE='NUMBER' THEN 'NUMBER'
+                    ELSE b.DATA_TYPE || '(' || b.DATA_LENGTH || ')'
+               END AS "COLUMNTYPE",
+               CASE WHEN CONSTRAINT_TYPE ='P' THEN 'Y' END AS "PRIMARY",
+               cASe WHEN  b.NULLABLE ='N' THEN 'Y' END AS "NOTNULL",
+               DATA_DEFAULT AS "DEFAULTVAL"
+        FROM USER_COL_COMMENTS a,
+	         USER_tab_columns b,
+             (SELECT cu.TABLE_NAME,
+                     cu.COLUMN_NAME,
+                     au.CONSTRAINT_TYPE
+              FROM USER_CONS_COLUMNS cu,
+                   USER_CONSTRAINTS au
+              WHERE cu.CONSTRAINT_NAME = au.CONSTRAINT_NAME
+                AND au.CONSTRAINT_TYPE = 'P') c,
+             USER_TAB_COMMENTS d
+        WHERE a.TABLE_NAME = b.TABLE_NAME
+          AND a.COLUMN_NAME = b.COLUMN_NAME
+          AND a.TABLE_NAME = d.TABLE_NAME
+          AND a.TABLE_NAME = c.TABLE_NAME(+)
+          AND a.COLUMN_NAME = c.COLUMN_NAME(+)
+        ORDER BY b.TABLE_NAME, b.COLUMN_ID;
+    </select>
+
+</mapper>
