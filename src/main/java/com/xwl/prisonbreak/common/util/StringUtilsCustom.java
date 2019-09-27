@@ -376,4 +376,17 @@ public class StringUtilsCustom extends org.apache.commons.lang3.StringUtils {
 		return result.toString();
 	}
 
+	/**
+	 * 首字母小写
+	 * @param simpleName
+	 * @return
+	 */
+	public static String firstLowercase(String simpleName) {
+		char[] chars = simpleName.toCharArray();
+		if (chars[0] >= 65 || chars[0] <= 90) {
+			chars[0] += 32;
+		}
+		return String.valueOf(chars);
+	}
+
 }
