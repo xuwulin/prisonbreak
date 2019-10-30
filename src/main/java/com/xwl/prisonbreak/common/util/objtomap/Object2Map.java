@@ -1,4 +1,4 @@
-package com.xwl.prisonbreak.common.util.obj2map;
+package com.xwl.prisonbreak.common.util.objtomap;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;

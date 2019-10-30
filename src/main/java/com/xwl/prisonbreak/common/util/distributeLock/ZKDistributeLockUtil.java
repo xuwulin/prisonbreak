@@ -14,15 +14,15 @@ import java.util.concurrent.CountDownLatch;
 /**
  * @author xwl
  * @date 2019-09-25 22:15
- * @description 分布式锁工具
+ * @description zookeeper分布式锁工具
  */
-public class DistributeLockUtil {
+public class ZKDistributeLockUtil {
 
     // zookeeper客户端
     private CuratorFramework client = null;
 
     // 日志
-    private final Logger log = LoggerFactory.getLogger(DistributeLockUtil.class);
+    private final Logger log = LoggerFactory.getLogger(ZKDistributeLockUtil.class);
 
     // 用于挂起当前请求，并且等待上一个分布式锁释放
     private static CountDownLatch zkLockLatch = new CountDownLatch(1);
@@ -38,7 +38,7 @@ public class DistributeLockUtil {
      *
      * @param client
      */
-    public DistributeLockUtil(CuratorFramework client) {
+    public ZKDistributeLockUtil(CuratorFramework client) {
         this.client = client;
     }
 
