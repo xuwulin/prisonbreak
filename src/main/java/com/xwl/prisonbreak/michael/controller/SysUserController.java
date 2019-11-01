@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.xwl.Hello;
 import com.xwl.prisonbreak.aop.CustomAopAnnotation;
+import com.xwl.prisonbreak.common.enums.ResponseTypes;
 import com.xwl.prisonbreak.michael.entity.SysUser;
 import com.xwl.prisonbreak.common.vo.ResponseResult;
 import com.xwl.prisonbreak.michael.service.SysUserService;
@@ -239,6 +241,13 @@ public class SysUserController {
     public ResponseResult getByIds(@RequestBody List<String> ids) {
         List<SysUser> byIds = sysUserService.getByIds(ids);
         return new ResponseResult(byIds);
+    }
+
+    @PostMapping("/hello")
+    @ApiOperation(value = "测试项目下lib文件夹下引入的jar包")
+    public ResponseResult hello() {
+        Hello.helloWorld();
+        return new ResponseResult(ResponseTypes.SUCCESS);
     }
 
 }

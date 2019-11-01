@@ -231,6 +231,16 @@
             <version>2.9.0</version>
         </dependency>
 
+        <!-- 引入项目下lib文件夹下的hello.jar -->
+        <dependency>
+            <groupId>com.xwl</groupId>
+            <artifactId>hello</artifactId>
+            <!-- 版本号随意 -->
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/hello.jar</systemPath>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -238,8 +248,13 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <!-- 将项目打包，同时把本地的jar包(项目lib文件夹下的jar包)也引入进去 -->
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
             </plugin>
         </plugins>
+
         <!-- 如果mapper.xml是放在src/main/java目录下，需配置以下 -->
         <resources>
             <resource>
