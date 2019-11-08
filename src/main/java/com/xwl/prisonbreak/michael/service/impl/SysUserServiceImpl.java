@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xwl.prisonbreak.michael.mapper.SysUserMapper;
 import com.xwl.prisonbreak.michael.entity.SysUser;
+import com.xwl.prisonbreak.michael.pojo.vo.DelByIdAndNickNameInputDTO;
 import com.xwl.prisonbreak.michael.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,6 +71,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public List<SysUser> getByIds(List<String> ids) {
         List<SysUser> byIds = sysUserMapper.getByIds(ids);
         return byIds;
+    }
+
+    @Override
+    public int delByIdAndNickName(DelByIdAndNickNameInputDTO inputDTO) {
+        int i = sysUserMapper.delByIdAndNickName(inputDTO);
+        return i;
     }
 
 

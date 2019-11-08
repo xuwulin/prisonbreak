@@ -65,4 +65,10 @@
         </if>
     </select>
 
+    <delete id="delByIdAndNickName" parameterType="com.xwl.prisonbreak.michael.pojo.vo.DelByIdAndNickNameInputDTO">
+        DELETE FROM sys_user
+        WHERE id = #{id}
+          AND nickname = #{nickName}
+    </delete>
+
 </mapper>

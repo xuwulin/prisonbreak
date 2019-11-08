@@ -3,6 +3,7 @@ package com.xwl.prisonbreak.michael.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xwl.prisonbreak.michael.entity.SysUser;
+import com.xwl.prisonbreak.michael.pojo.vo.DelByIdAndNickNameInputDTO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -60,4 +61,11 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * @return
      */
     List<SysUser> getByIds(@Param("ids") List<String> ids);
+
+    /**
+     * 根据id和昵称删除
+     * @param inputDTO
+     * @return
+     */
+    int delByIdAndNickName(DelByIdAndNickNameInputDTO inputDTO);
 }

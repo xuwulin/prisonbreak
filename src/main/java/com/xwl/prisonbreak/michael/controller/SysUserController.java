@@ -7,8 +7,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xwl.Hello;
 import com.xwl.prisonbreak.aop.CustomAopAnnotation;
 import com.xwl.prisonbreak.common.enums.ResponseTypes;
-import com.xwl.prisonbreak.michael.entity.SysUser;
 import com.xwl.prisonbreak.common.vo.ResponseResult;
+import com.xwl.prisonbreak.michael.entity.SysUser;
+import com.xwl.prisonbreak.michael.pojo.vo.DelByIdAndNickNameInputDTO;
+import com.xwl.prisonbreak.michael.pojo.vo.InsertWithNameInputDTO;
+import com.xwl.prisonbreak.michael.pojo.vo.UpdateByIdXmlInputDTO;
 import com.xwl.prisonbreak.michael.service.SysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -153,6 +156,16 @@ public class SysUserController {
         return res;
     }
 
+    @PostMapping("insertWithName")
+    @ApiOperation("传入name新增一条数据，返回新增的id")
+    public Integer insertWithName(@RequestBody InsertWithNameInputDTO inputDTO) {
+        SysUser sysUser = new SysUser();
+        sysUser.setUsername(inputDTO.getUsername()).setNickname(inputDTO.getNickName());
+        Integer res = sysUserService.insert(sysUser);
+
+        return res;
+    }
+
     @GetMapping("updateById")
     @ApiOperation("根据id更新一条数据")
     public Boolean updateById() {
@@ -172,6 +185,13 @@ public class SysUserController {
         // 执行sql: UPDATE sys_user SET deleted=1 WHERE id=? AND deleted=0
         boolean res = sysUserService.removeById(105);
         return res;
+    }
+
+    @DeleteMapping("delByIdAndNickName")
+    @ApiOperation("根据id和昵称删除")
+    public int delByIdAndNickName(@RequestBody DelByIdAndNickNameInputDTO inputDTO) {
+        int i = sysUserService.delByIdAndNickName(inputDTO);
+        return i;
     }
 
     @DeleteMapping("delByMap")
@@ -229,10 +249,10 @@ public class SysUserController {
         return true;
     }
 
-    @GetMapping("/updateByIdXml")
+    @PutMapping("/updateByIdXml")
     @ApiOperation(value = "根据id修改,这种方式要想修改系统字段update_time，只有在xml中显示声明")
-    public ResponseResult updateByIdXml(String id, String nickName) {
-        int res = sysUserService.updateByIdXml(id, nickName);
+    public ResponseResult updateByIdXml(@RequestBody UpdateByIdXmlInputDTO inputDTO) {
+        int res = sysUserService.updateByIdXml(inputDTO.getId(), inputDTO.getNickName());
         return new ResponseResult(res);
     }
 
@@ -249,5 +269,4 @@ public class SysUserController {
         Hello.helloWorld();
         return new ResponseResult(ResponseTypes.SUCCESS);
     }
-
 }

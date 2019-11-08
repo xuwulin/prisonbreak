@@ -3,6 +3,7 @@ package com.xwl.prisonbreak.michael.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xwl.prisonbreak.michael.entity.SysUser;
+import com.xwl.prisonbreak.michael.pojo.vo.DelByIdAndNickNameInputDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -60,4 +61,11 @@ public interface SysUserService extends IService<SysUser> {
     int updateByIdXml(String id, String nickname);
 
     List<SysUser> getByIds(List<String> ids);
+
+    /**
+     * 根据id和昵称删除
+     * @param inputDTO
+     * @return
+     */
+    int delByIdAndNickName(DelByIdAndNickNameInputDTO inputDTO);
 }
