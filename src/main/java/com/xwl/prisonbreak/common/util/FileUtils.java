@@ -4,10 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
@@ -112,8 +109,8 @@ public class FileUtils {
     /**
      * 文件路径取md5
      *
-     * @param path
-     * @return
+     * @param path 文件路径
+     * @return 返回32位的字符串
      */
     public static String md5File(String path) {
         String value = null;
@@ -139,5 +136,36 @@ public class FileUtils {
             }
         }
         return value;
+    }
+
+    /**
+     * 将文件转为字节数组
+     *
+     * @param pathStr 文件路径
+     * @return
+     */
+    public static byte[] getBytesByFile(String pathStr) {
+        File file = new File(pathStr);
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream(1024);
+            byte[] b = new byte[1024];
+            int n;
+            while ((n = fis.read(b)) != -1) {
+                bos.write(b, 0, n);
+            }
+            fis.close();
+            byte[] data = bos.toByteArray();
+            bos.close();
+            return data;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        String s = md5File("D:\\Users\\XUNING\\Desktop\\和为\\项目时间节点.png");
+        System.out.println(s);
     }
 }

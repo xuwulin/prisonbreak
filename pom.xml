@@ -231,6 +231,13 @@
             <version>2.9.0</version>
         </dependency>
 
+        <!-- 引入SM3加密工具 org.bouncycastle/bcprov-jdk15on -->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>1.59</version>
+        </dependency>
+
         <!-- 引入项目下lib文件夹下的hello.jar -->
         <dependency>
             <groupId>com.xwl</groupId>
