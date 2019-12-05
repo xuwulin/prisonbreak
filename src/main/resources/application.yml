@@ -123,7 +123,7 @@ logging:
 upload:
   # 配置默认文件保存位置
   localtion:
-    windows: D:/prisonbreak-upload/file/
+    windows: G:\workspace_idea\prisonbreak\prisonbreak-upload\file
     linux: /local/prisonbreak-upload/file/
   # 单个文件最大KB/MB，此处配置文件上传大小并不生效，需要在spring.application.multipart中配置！！！
 #  maxFileSize: 102400KB

@@ -83,7 +83,7 @@ public class FileInfoController {
 
 
     /**
-     * 文件下载（根据文件名fileName下载）
+     * 文件下载（根据文件id下载）
      * @param id
      * @param res
      */
