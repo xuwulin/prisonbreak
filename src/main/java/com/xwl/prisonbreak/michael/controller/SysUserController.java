@@ -13,6 +13,8 @@ import com.xwl.prisonbreak.michael.pojo.vo.DelByIdAndNickNameInputDTO;
 import com.xwl.prisonbreak.michael.pojo.vo.InsertWithNameInputDTO;
 import com.xwl.prisonbreak.michael.pojo.vo.UpdateByIdXmlInputDTO;
 import com.xwl.prisonbreak.michael.service.SysUserService;
+import com.xwl.prisonbreak.michael.strategy.UserTypeContext;
+import com.xwl.prisonbreak.michael.strategy.service.UserTypeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,9 @@ public class SysUserController {
 
     @Autowired
     private SysUserService sysUserService;
+
+    @Autowired
+    private UserTypeContext userTypeContext;
 
     @GetMapping("/userId")
     @ApiOperation("根据id查询，通过IService中的方法")
@@ -267,6 +272,14 @@ public class SysUserController {
     @ApiOperation(value = "测试项目下lib文件夹下引入的jar包")
     public ResponseResult hello() {
         Hello.helloWorld();
+        return new ResponseResult(ResponseTypes.SUCCESS);
+    }
+
+    @GetMapping("/testStrategy")
+    @ApiOperation(value = "测试使用策略模式优化过多的if-else")
+    public ResponseResult testStrategy(@RequestParam("userType") String userType) {
+        UserTypeService instance = userTypeContext.getInstance(userType);
+        instance.process(userType);
         return new ResponseResult(ResponseTypes.SUCCESS);
     }
 }
