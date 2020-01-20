@@ -6,7 +6,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 /**
- * SpringBean工程，用于创建实例
+ * SpringBean工厂，用于获取类的实例
  */
 @Component
 public final class SpringBeanFactory implements ApplicationContextAware {
@@ -24,6 +24,4 @@ public final class SpringBeanFactory implements ApplicationContextAware {
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		context = applicationContext;
 	}
-	
-	
 }
