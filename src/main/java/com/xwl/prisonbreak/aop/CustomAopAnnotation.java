@@ -29,7 +29,7 @@ import java.lang.annotation.*;
  *       RUNTIME：运行级别保留，编译后的class文件中存在，在jvm运行时保留，可以被反射调用。
  */
 @Documented
-@Target({ElementType.METHOD, ElementType.TYPE})
+@Target({ElementType.TYPE, ElementType.METHOD}) // 此注解可以加在类上，方法上
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CustomAopAnnotation {
     String param() default "";

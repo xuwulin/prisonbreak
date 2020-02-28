@@ -30,6 +30,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/api/user")
 @Api(tags = "用户接口")
+@CustomAopAnnotation(param = "id", detail = "加在类上")
 public class SysUserController {
 
     @Autowired
@@ -51,7 +52,7 @@ public class SysUserController {
         return sysUser;
     }
 
-    @CustomAopAnnotation(param = "id", detail = "参数id")
+    @CustomAopAnnotation(param = "id", detail = "加在方法上")
     @GetMapping("/findByIdUseXml")
     @ApiOperation("根据id查询，通过写mapper.xml的方式实现")
     public SysUser findByIdUseXml(String id) {
@@ -153,6 +154,7 @@ public class SysUserController {
         return new ResponseResult<>(res);
     }
 
+    @CustomAopAnnotation(param = "sysUser", detail = "加在方法上，插入方法")
     @PostMapping("insert")
     @ApiOperation("新增一条数据，返回新增的id")
     public Integer insert(@RequestBody SysUser sysUser) {
@@ -275,6 +277,7 @@ public class SysUserController {
         return new ResponseResult(ResponseTypes.SUCCESS);
     }
 
+//    @CustomAopAnnotation(param = "userType", detail = "用户类型")
     @GetMapping("/testStrategy")
     @ApiOperation(value = "测试使用策略模式优化过多的if-else")
     public ResponseResult testStrategy(@RequestParam("userType") String userType) {

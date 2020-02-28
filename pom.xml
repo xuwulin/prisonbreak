@@ -245,6 +245,13 @@
             <version>1.59</version>
         </dependency>
 
+        <!-- 引入使logback输出json格式的日志依赖 -->
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>5.0</version>
+        </dependency>
+
         <!-- 引入项目下lib文件夹下的hello.jar -->
         <dependency>
             <groupId>com.xwl</groupId>
