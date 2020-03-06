@@ -57,6 +57,7 @@
             <!-- 每天日志归档，存储的位置及文件名称 -->
             <fileNamePattern>${log.path}/debug/log-debug-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- 日志文件最大值，超过最大值，会重新建一个文件 -->
                 <maxFileSize>100MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
             <!-- 日志文件保留天数 -->
