@@ -19,6 +19,7 @@ import java.util.Map;
 public class UserTypeContext {
     /**
      * 获取执行器实例
+     *
      * @param command 执行器实例
      * @return
      */
@@ -31,8 +32,9 @@ public class UserTypeContext {
         String clazz = allClazz.get(trim);
         UserTypeService userTypeService = null;
         try {
-            if (StringUtils.isEmpty(clazz)){
-                clazz = CommonTypeServiceImpl.class.getName() ;
+            if (StringUtils.isEmpty(clazz)) {
+                // 如果为空，则返回通用实现类
+                clazz = CommonTypeServiceImpl.class.getName();
             }
             // Class.forName(clazz)：通过反射获取该类的实例
             // 从 Spring Bean 容器中获取一个 InnerCommand 实例

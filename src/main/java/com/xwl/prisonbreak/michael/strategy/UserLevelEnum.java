@@ -31,8 +31,9 @@ public enum UserLevelEnum {
 
     /**
      * 构造函数
-     * @param type 类型
-     * @param desc 描述
+     *
+     * @param type  类型
+     * @param desc  描述
      * @param clazz 实现类
      */
     UserLevelEnum(String type, String desc, String clazz) {
@@ -68,6 +69,7 @@ public enum UserLevelEnum {
 
     /**
      * 获取全部枚举对应的实现类
+     *
      * @return
      */
     public static Map<String, String> getAllClazz() {

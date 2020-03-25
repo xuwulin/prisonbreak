@@ -9,7 +9,7 @@ import java.util.Collections;
  * @author xwl
  * @date 2019-10-30 15:18
  * @description redis 分布式锁工具
- *
+ * <p>
  * 首先，为了确保分布式锁可用，我们至少要确保锁的实现同时满足以下四个条件：
  * 1、互斥性。在任意时刻，只有一个客户端能持有锁。
  * 2、不会发生死锁。即使有一个客户端在持有锁的期间崩溃而没有主动解锁，也能保证后续其他客户端能加锁。
@@ -18,7 +18,6 @@ import java.util.Collections;
  */
 public class RedisDistributeLockUtil {
     private static final Long RELEASE_SUCCESS = 1L;
-
     private static final String LOCK_SUCCESS = "OK";
     private static final String SET_IF_NOT_EXIST = "NX";
     private static final String SET_WITH_EXPIRE_TIME = "PX";
@@ -79,6 +78,5 @@ public class RedisDistributeLockUtil {
             return true;
         }
         return false;
-
     }
 }

@@ -18,16 +18,16 @@ import java.util.concurrent.CountDownLatch;
  */
 public class ZKDistributeLockUtil {
 
-    // zookeeper客户端
-    private CuratorFramework client = null;
-
     // 日志
     private final Logger log = LoggerFactory.getLogger(ZKDistributeLockUtil.class);
+
+    // zookeeper客户端
+    private CuratorFramework client = null;
 
     // 用于挂起当前请求，并且等待上一个分布式锁释放
     private static CountDownLatch zkLockLatch = new CountDownLatch(1);
 
-    // 分布式锁的总结点名
+    // 分布式锁的总节点名
     private static final String ZK_LOCK_PROJECT = "zk-locks";
 
     // “当前业务”的分布式锁节点，不同的业务需要不同的分布式锁
@@ -112,6 +112,7 @@ public class ZKDistributeLockUtil {
 
     /**
      * 释放锁：就是删除节点
+     *
      * @return
      */
     public boolean releaseLock() {
@@ -129,6 +130,7 @@ public class ZKDistributeLockUtil {
 
     /**
      * 创建watcher监听
+     *
      * @param path 路径：监听的总结点
      */
     private void addWatcherToLock(String path) throws Exception {
