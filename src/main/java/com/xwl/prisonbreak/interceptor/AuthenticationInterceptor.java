@@ -4,7 +4,6 @@ import com.xwl.prisonbreak.aop.JWTCheckToken;
 import com.xwl.prisonbreak.aop.JWTLoginToken;
 import com.xwl.prisonbreak.common.Audience;
 import com.xwl.prisonbreak.common.util.JWTUtil;
-import com.xwl.prisonbreak.michael.service.SysUserService;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.BeanFactory;
@@ -47,8 +46,6 @@ import java.lang.reflect.Method;
  */
 @Slf4j
 public class AuthenticationInterceptor implements HandlerInterceptor {
-    @Autowired
-    private SysUserService sysUserService;
 
     @Autowired
     private Audience audience;
