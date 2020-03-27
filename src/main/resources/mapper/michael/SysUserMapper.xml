@@ -71,4 +71,10 @@
           AND nickname = #{nickName}
     </delete>
 
+    <select id="findByUsernameAndPassword" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_user AS t WHERE t.username = #{username} AND t.password = #{password}
+    </select>
+
 </mapper>

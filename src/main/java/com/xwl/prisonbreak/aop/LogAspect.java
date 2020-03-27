@@ -11,9 +11,9 @@ import org.aspectj.lang.annotation.*;
  *  新建一个日志切面类，假设我们需要一个类来打印进入方法或方法执行后需要打印的日志。
  */
 // @Aspect注解：表明这是是一个切面类
-//@Aspect
+//@Aspect // 如果要使用这个切面类LogAspect需要放开此注解
 // @Component注解：表示将当前类注入到Spring容器内
-//@Component
+//@Component // 如果要使用这个切面类LogAspect需要放开此注解
 public class LogAspect {
     /**
      * @Pointcut 切入点，其中execution用于使用切面的连接点。

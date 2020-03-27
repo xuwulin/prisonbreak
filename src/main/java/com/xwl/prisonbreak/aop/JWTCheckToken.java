@@ -1,14 +1,14 @@
 package com.xwl.prisonbreak.aop;
 
-import java.lang.annotation.*;
-
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * @Auther: xwl
- * @Date: 2019/6/19 17:56
- * @Description: 创建切面，方式二：创建切面注解
- * 此切面的作用：用于记录日志，可以加在类上和方法上，如果加在类上表示该类中的每个方法都会被切入
- * 用法：在类或者方法上加：@CustomAopAnnotation(param = "id", detail = "加在方法上")
+ * @author xwl
+ * @date 2020-03-27 13:50
+ * @description 作用：如果访问的资源需要权限校验就标注@CheckToken注解
  *
  * @Documented注解 功能：指明修饰的注解，可以被例如javadoc此类的工具文档化，只负责标记，没有成员取值。
  *
@@ -30,11 +30,8 @@ import java.lang.annotation.*;
  *       CLASS：编译级别保留，编译后的class文件中存在，在jvm运行时丢弃，这是默认值。
  *       RUNTIME：运行级别保留，编译后的class文件中存在，在jvm运行时保留，可以被反射调用。
  */
-@Documented
-@Target({ElementType.TYPE, ElementType.METHOD}) // 此注解可以加在类上，方法上
+@Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CustomAopAnnotation {
-    // 属性根据业务需求添加，这里只是举例
-    String param() default "";
-    String detail() default "";
+public @interface JWTCheckToken {
+    boolean required() default true;
 }

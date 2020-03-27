@@ -79,5 +79,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         return i;
     }
 
+    @Override
+    public SysUser findByUsernameAndPassword(String username, String password) {
+        return sysUserMapper.findByUsernameAndPassword(username, password);
+    }
+
 
 }

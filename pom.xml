@@ -259,6 +259,18 @@
             <version>5.2.4</version>
         </dependency>
 
+        <!-- 引入JWT依赖，由于是基于Java，所以需要的是java-jwt -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+
         <!-- 引入项目下lib文件夹下的hello.jar -->
         <dependency>
             <groupId>com.xwl</groupId>

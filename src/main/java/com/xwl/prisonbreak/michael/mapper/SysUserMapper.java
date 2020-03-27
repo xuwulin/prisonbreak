@@ -22,6 +22,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
     /**
      * 根据id查询
      * 使用mapper.xml的方式写查询语句
+     *
      * @param id
      * @return
      */
@@ -30,6 +31,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
     /**
      * 根据id查询
      * 使用注解的方式
+     *
      * @param id
      * @return
      */
@@ -39,6 +41,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
     /**
      * 根据动态表名查询内容。
      * 注意：必须使用 ${}，使用 #{}会查询报错
+     *
      * @param tableName 表名
      * @return
      */
@@ -49,6 +52,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
 
     /**
      * 根据id修改，xml方式
+     *
      * @param id
      * @param nickname
      * @return
@@ -57,6 +61,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
 
     /**
      * 使用<foreach></foreach>标签
+     *
      * @param ids
      * @return
      */
@@ -64,8 +69,18 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
 
     /**
      * 根据id和昵称删除
+     *
      * @param inputDTO
      * @return
      */
     int delByIdAndNickName(DelByIdAndNickNameInputDTO inputDTO);
+
+    /**
+     * 根据用户名和密码查询用户
+     *
+     * @param username
+     * @param password
+     * @return
+     */
+    SysUser findByUsernameAndPassword(@Param("username") String username, @Param("password") String password);
 }

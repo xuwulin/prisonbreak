@@ -1,14 +1,19 @@
 package com.xwl.prisonbreak.michael.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xwl.Hello;
 import com.xwl.prisonbreak.aop.CustomAopAnnotation;
+import com.xwl.prisonbreak.aop.JWTCheckToken;
+import com.xwl.prisonbreak.aop.JWTLoginToken;
 import com.xwl.prisonbreak.common.enums.ResponseTypes;
+import com.xwl.prisonbreak.common.util.JWTUtil;
 import com.xwl.prisonbreak.common.vo.ResponseResult;
 import com.xwl.prisonbreak.michael.entity.SysUser;
+import com.xwl.prisonbreak.michael.pojo.dto.LoginInputDto;
 import com.xwl.prisonbreak.michael.pojo.vo.DelByIdAndNickNameInputDTO;
 import com.xwl.prisonbreak.michael.pojo.vo.InsertWithNameInputDTO;
 import com.xwl.prisonbreak.michael.pojo.vo.UpdateByIdXmlInputDTO;
@@ -277,7 +282,7 @@ public class SysUserController {
         return new ResponseResult(ResponseTypes.SUCCESS);
     }
 
-//    @CustomAopAnnotation(param = "userType", detail = "用户类型")
+    //    @CustomAopAnnotation(param = "userType", detail = "用户类型")
     @GetMapping("/testStrategy")
     @ApiOperation(value = "测试使用策略模式优化过多的if-else")
     public ResponseResult testStrategy(@RequestParam("userType") String userType) {
@@ -285,4 +290,42 @@ public class SysUserController {
         instance.process(userType);
         return new ResponseResult(ResponseTypes.SUCCESS);
     }
+
+    @PostMapping("/login")
+    @ApiOperation(value = "用户登录操作")
+    @JWTLoginToken
+    public Object login(@RequestBody LoginInputDto loginInputDto) {
+        JSONObject jsonObject = new JSONObject();
+        SysUser sysUser = sysUserService.findByUsernameAndPassword(loginInputDto.getUsername(), loginInputDto.getPassword());
+        if (sysUser == null) {
+            jsonObject.put("message", "登录失败,用户不存在");
+            return jsonObject;
+        } else {
+            if (!sysUser.getPassword().equals(loginInputDto.getPassword())) {
+                jsonObject.put("message", "登录失败,密码错误");
+                return jsonObject;
+            } else {
+                String token = JWTUtil.createJWT(6000000, sysUser);
+                jsonObject.put("token", token);
+                jsonObject.put("user", sysUser);
+                return jsonObject;
+            }
+        }
+    }
+
+    //查看个人信息
+    @JWTCheckToken
+    @GetMapping("/getMessage/{id}")
+    @ApiOperation(value = "查看用户信息")
+    public SysUser getMessage(@PathVariable("id") String id) {
+        // 调用 baseMapper.selectById(id)
+        // 其中selectById(Serializable id)中的id需要序列化，
+        // 实体类中一定要重写！！！
+        // protected Serializable pkVal() {
+        //        return this.id;
+        // }
+        SysUser sysUser = sysUserService.getById(id);
+        return sysUser;
+    }
+
 }
