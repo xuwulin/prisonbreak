@@ -131,3 +131,14 @@ upload:
 #  maxFileSize: 102400KB
   # 单次上传文件总大小KB/MB
 #  maxRequestSize: 1024000KB
+
+# jwt配置
+audience:
+  # 代表这个JWT的接收对象，存入audience
+  clientId: client
+  # 生成签名的时候使用的密钥, 用于加密，可通过Base64加密，可自行替换为其他加密方式，本例中使用Base64加密
+  secret: MDk4ZjZiY2Q0NjIxZDM3M2NhZGU0ZTgzMjYyN2I0ZjY=
+  # JWT的签发主体，存入issuer
+  name: prisonbreak
+  # 过期时间，时间戳，详情请看：com.xwl.prisonbreak.common.util.JWTUtil.createJWT()方法尾部，设置过期时间的方式
+  expiresSecond: 172800000

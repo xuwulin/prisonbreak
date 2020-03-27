@@ -9,6 +9,7 @@ import com.xwl.Hello;
 import com.xwl.prisonbreak.aop.CustomAopAnnotation;
 import com.xwl.prisonbreak.aop.JWTCheckToken;
 import com.xwl.prisonbreak.aop.JWTLoginToken;
+import com.xwl.prisonbreak.common.Audience;
 import com.xwl.prisonbreak.common.enums.ResponseTypes;
 import com.xwl.prisonbreak.common.util.JWTUtil;
 import com.xwl.prisonbreak.common.vo.ResponseResult;
@@ -43,6 +44,9 @@ public class SysUserController {
 
     @Autowired
     private UserTypeContext userTypeContext;
+
+    @Autowired
+    private Audience audience;
 
     @GetMapping("/userId")
     @ApiOperation("根据id查询，通过IService中的方法")
@@ -292,24 +296,19 @@ public class SysUserController {
     }
 
     @PostMapping("/login")
-    @ApiOperation(value = "用户登录操作")
+    @ApiOperation(value = "用户登录操作，获取token")
     @JWTLoginToken
-    public Object login(@RequestBody LoginInputDto loginInputDto) {
+    public ResponseResult login(@RequestBody LoginInputDto loginInputDto) {
         JSONObject jsonObject = new JSONObject();
         SysUser sysUser = sysUserService.findByUsernameAndPassword(loginInputDto.getUsername(), loginInputDto.getPassword());
         if (sysUser == null) {
-            jsonObject.put("message", "登录失败,用户不存在");
-            return jsonObject;
+            return new ResponseResult(ResponseTypes.USER_PASSWORD_ERROR); // 用户名或密码错误
         } else {
-            if (!sysUser.getPassword().equals(loginInputDto.getPassword())) {
-                jsonObject.put("message", "登录失败,密码错误");
-                return jsonObject;
-            } else {
-                String token = JWTUtil.createJWT(6000000, sysUser);
-                jsonObject.put("token", token);
-                jsonObject.put("user", sysUser);
-                return jsonObject;
-            }
+            // 创建token
+            String token = JWTUtil.createJWT(sysUser.getId().toString(), sysUser.getUsername(), sysUser.getRoleId().toString(), audience);
+            jsonObject.put("token", token);
+            jsonObject.put("user", sysUser);
+            return new ResponseResult(jsonObject);
         }
     }
 
