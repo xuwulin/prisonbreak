@@ -30,6 +30,7 @@ public enum ResponseTypes {
     METHOD_NOT_ALLOWED("1020", "方法不允许操作"),
     TIMEOUT("1021", "操作超时"),
     UNAUTHORIZED("1022", "当前操作未授权"),
+    REPETITIVE_OPERATION("1023", "重复操作"),
     UNKNOW("1030", "服务器内部错误,请联系管理员");
 
     /**

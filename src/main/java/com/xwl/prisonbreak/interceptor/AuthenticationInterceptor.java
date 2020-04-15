@@ -1,7 +1,7 @@
 package com.xwl.prisonbreak.interceptor;
 
-import com.xwl.prisonbreak.aop.JWTCheckToken;
-import com.xwl.prisonbreak.aop.JWTLoginToken;
+import com.xwl.prisonbreak.annotation.JWTCheckToken;
+import com.xwl.prisonbreak.annotation.JWTLoginToken;
 import com.xwl.prisonbreak.common.Audience;
 import com.xwl.prisonbreak.common.util.JWTUtil;
 import io.jsonwebtoken.Claims;

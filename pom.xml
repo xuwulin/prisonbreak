@@ -35,6 +35,12 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
+        <!-- spring-boot redistemplate -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
         <!-- 引入spring-boot-starter-test依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

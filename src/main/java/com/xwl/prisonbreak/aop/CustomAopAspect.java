@@ -22,8 +22,8 @@ public class CustomAopAspect {
     /**
      * @CustomAopAnnotation 加在类上
      *
-     * @Around("@within(com.xwl.prisonbreak.aop.CustomAopAnnotation)")
-     * 和 @annotation("@within(com.xwl.prisonbreak.aop.CustomAopAnnotation)")的区别：
+     * @Around("@within(com.xwl.prisonbreak.annotation.CustomAopAnnotation)")
+     * 和 @annotation("@within(com.xwl.prisonbreak.annotation.CustomAopAnnotation)")的区别：
      *
      * 注：@within 用于切类，即@CustomAopAnnotation注解使用在类上，该类中的每个方法都会被切入
      *    @annotation 是用于切方法，即@CustomAopAnnotation注解使用在方法上
@@ -32,7 +32,7 @@ public class CustomAopAspect {
      * @return
      * @throws Throwable
      */
-    @Around("@within(com.xwl.prisonbreak.aop.CustomAopAnnotation)")
+    @Around("@within(com.xwl.prisonbreak.annotation.CustomAopAnnotation)")
     public Object aroundOnClass(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         SysLog sysLog = SysLogUtil.getSysLog(proceedingJoinPoint);
 
@@ -61,8 +61,8 @@ public class CustomAopAspect {
     /**
      * @CustomAopAnnotation 加在方法上
      *
-     * @Around("@within(com.xwl.prisonbreak.aop.CustomAopAnnotation)")
-     * 和 @annotation("@within(com.xwl.prisonbreak.aop.CustomAopAnnotation)")的区别：
+     * @Around("@within(com.xwl.prisonbreak.annotation.CustomAopAnnotation)")
+     * 和 @annotation("@within(com.xwl.prisonbreak.annotation.CustomAopAnnotation)")的区别：
      *
      * 注：@within 用于切类，即@CustomAopAnnotation注解使用在类上，该类中的每个方法都会被切入
      *    @annotation 是用于切方法，即@CustomAopAnnotation注解使用在方法上
@@ -71,7 +71,7 @@ public class CustomAopAspect {
      * @return
      * @throws Throwable
      */
-    @Around("@annotation(com.xwl.prisonbreak.aop.CustomAopAnnotation)")
+    @Around("@annotation(com.xwl.prisonbreak.annotation.CustomAopAnnotation)")
     public Object aroundOnMethod(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         SysLog sysLog = SysLogUtil.getSysLog(proceedingJoinPoint);
 

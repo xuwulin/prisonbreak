@@ -1,7 +1,7 @@
 package com.xwl.prisonbreak.common.util;
 
 import com.alibaba.fastjson.JSON;
-import com.xwl.prisonbreak.aop.CustomAopAnnotation;
+import com.xwl.prisonbreak.annotation.CustomAopAnnotation;
 import com.xwl.prisonbreak.common.SysLog;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
