@@ -19,14 +19,19 @@ public class AsyncTask {
 
     /**
      * 异步转换
+     * 注意，异常一定要捕获，不能向上抛
      */
     @Async("asyncTaskExecutor")
-    public void asyncConvert(String filePath) throws Exception {
+    public void asyncConvert(String filePath) {
         log.info("线程id：" + Thread.currentThread().getId() + "，线程名称：" + Thread.currentThread().getName());
         File file = new File(filePath);
         // 转换开始时间
         long currentTimeMillis = System.currentTimeMillis();
-        LfasrUtil.lfasrResult(file);
+        try {
+            LfasrUtil.lfasrResult(file);
+        } catch (Exception e) {
+            log.error("转换错误", e);
+        }
         // 转换结束时间
         long currentTimeMillis1 = System.currentTimeMillis();
         log.info("线程id：" + Thread.currentThread().getId() +
