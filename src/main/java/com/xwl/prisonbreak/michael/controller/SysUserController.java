@@ -186,11 +186,13 @@ public class SysUserController {
     @ApiOperation("根据id更新一条数据")
     public Boolean updateById() {
         SysUser user = new SysUser();
-        user.setId(102);
-        user.setUsername("李四");
+        user.setId(106);
+        user.setUsername("雪芹");
+        user.setUpdateVersion(0);
         // 调用的是 baseMapper.updateById(entity)
         // 也会忽略null值
-        // 执行sql: UPDATE sys_user SET username=?, update_time=? WHERE id=? AND deleted=0
+        // 乐观锁version，只支持updateById(id) 与 update(entity, wrapper) 方法，且更新时必须先拿到version，否则是不会更新version的
+        // 执行sql: UPDATE sys_user SET username=?, update_time=?, update_version=? WHERE id=? AND update_version=? AND deleted=0
         boolean res = sysUserService.updateById(user);
         return res;
     }
@@ -199,7 +201,7 @@ public class SysUserController {
     @ApiOperation("根据id删除一条数据")
     public Boolean delById() {
         // 执行sql: UPDATE sys_user SET deleted=1 WHERE id=? AND deleted=0
-        boolean res = sysUserService.removeById(105);
+        boolean res = sysUserService.removeById(106);
         return res;
     }
 

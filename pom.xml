@@ -143,7 +143,8 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.56</version>
+            <!--<version>1.2.56</version>-->
+            <version>1.2.21</version>
         </dependency>
 
         <!-- 引入easyexcel依赖 -->
@@ -286,6 +287,23 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/hello.jar</systemPath>
         </dependency>
+        <!-- 引入项目下lib文件夹下的lfasr-sdk-client-2.0.0.1006.jar -->
+        <dependency>
+            <groupId>com.iflytek.msp.cpdb.lfasr</groupId>
+            <artifactId>lfasr-sdk-client-2.0.0.1006</artifactId>
+            <!-- 版本号随意 -->
+            <version>2.0.0.1006</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/lfasr-sdk-client-2.0.0.1007.jar</systemPath>
+        </dependency>
+        <!--<dependency>
+            <groupId>com.alibaba.fastjson</groupId>
+            <artifactId>fastjson</artifactId>
+            &lt;!&ndash; 版本号随意 &ndash;&gt;
+            <version>1.2.21</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/fastjson-1.2.21.jar</systemPath>
+        </dependency>-->
 
     </dependencies>
 

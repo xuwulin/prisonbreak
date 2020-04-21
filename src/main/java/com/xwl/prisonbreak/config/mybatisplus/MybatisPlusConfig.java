@@ -54,6 +54,7 @@ public class MybatisPlusConfig {
      * 注解实体字段 @Version 必须要!
      * @return
      */
+    @Bean
     public OptimisticLockerInterceptor optimisticLockerInterceptor() {
         return new OptimisticLockerInterceptor();
     }

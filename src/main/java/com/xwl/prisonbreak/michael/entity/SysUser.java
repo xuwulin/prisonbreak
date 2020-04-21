@@ -16,12 +16,12 @@ import java.util.Date;
  * @Auther: xuwulin
  * @Date: 2019/5/16 10:13
  * @Description: 用户实体
- *
+ * <p>
  * AR模式：Active Record(活动记录)，是一种领域模型模式，特点是一个模型类对应关系型数据库中的一个表，
  * 而模型类的一个实例对应表中的一行记录。ActiveRecord 一直广受动态语言（ PHP 、 Ruby 等）的喜爱，
  * 而 Java 作为准静态语言，对于 ActiveRecord 往往只能感叹其优雅，所以 MP 也在 AR 道路上进行了一定的探索，
  * 仅仅需要让实体类继承 Model 类且实现主键指定方法，即可开启 AR 之旅。接下来看具体代码：
- *
+ * <p>
  * 如果不使用AR模式，则可以不用继承Model类
  */
 @Data
@@ -96,7 +96,7 @@ public class SysUser extends Model<SysUser> {
     /**
      * 创建时间
      */
-    @TableField(value = "create_time",fill = FieldFill.INSERT)
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     @ApiModelProperty(value = "创建时间", name = "createTime")
     private Date createTime;
 
@@ -123,11 +123,20 @@ public class SysUser extends Model<SysUser> {
     private Integer deleted;
 
     /**
+     * 乐观锁
+     */
+    @TableField("update_version")
+    @ApiModelProperty(value = "乐观锁", name = "updateVersion")
+    @Version
+    private Integer updateVersion;
+
+    /**
      * 邮件
      */
     @TableField("email")
     @ApiModelProperty(value = "邮件", name = "email")
     private String email;
+
     /**
      * 电话
      */
@@ -136,15 +145,8 @@ public class SysUser extends Model<SysUser> {
     private String phone;
 
     /**
-     * 乐观锁
-     */
-    @Version
-    @TableField("update_version")
-    @ApiModelProperty(value = "乐观锁", name = "updateVersion")
-    private Integer updateVersion;
-
-    /**
      * 范回此类的主键
+     *
      * @return
      */
     @Override
