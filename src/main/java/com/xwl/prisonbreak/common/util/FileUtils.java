@@ -5,6 +5,8 @@ import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
@@ -162,6 +164,26 @@ public class FileUtils {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * 将字节数组写入文件
+     * @param bytes 字节数组
+     * @param filePath 要写入的文件路径
+     * @param fileName 文件名
+     */
+    public static void byte2File(byte[] bytes, String filePath, String fileName) {
+        try {
+            Path path = Paths.get(filePath, fileName);
+            File file = new File(path.toString());
+            OutputStream output = new FileOutputStream(file);
+            BufferedOutputStream bufferedOutput = new BufferedOutputStream(output);
+            bufferedOutput.write(bytes);
+            bufferedOutput.close();
+            output.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
