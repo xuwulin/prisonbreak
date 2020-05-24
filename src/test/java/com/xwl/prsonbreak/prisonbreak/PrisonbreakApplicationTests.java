@@ -1,12 +1,19 @@
 package com.xwl.prsonbreak.prisonbreak;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.xwl.prisonbreak.PrisonbreakApplication;
+import com.xwl.prisonbreak.michael.pojo.dto.Test1;
+import com.xwl.prisonbreak.michael.pojo.dto.Test2;
+import com.xwl.prisonbreak.michael.pojo.dto.Test3;
+import com.xwl.prisonbreak.michael.pojo.dto.Test4;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -23,6 +30,31 @@ public class PrisonbreakApplicationTests {
 
     @Test
     public void contextLoads() {
+    }
+
+    @Test
+    public void testBeanUtils() throws InvocationTargetException, IllegalAccessException {
+        Test1 test1 = new Test1(1L, "张三");
+//        Test2 test2 = new Test2("1", "张三");
+        Test2 test2 = new Test2();
+//        BeanUtils.copyProperties(test1, test2);
+        String jsonString = JSONObject.toJSONString(test1);
+        Test2 test21 = JSON.parseObject(jsonString, Test2.class);
+        System.out.println(test21.toString());
+    }
+
+    @Test
+    public void testBeanUtils2() throws InvocationTargetException, IllegalAccessException {
+        Test1 test1 = new Test1(1L, "张三");
+        Test2 test2 = new Test2("2", "李四");
+        Test3 test3 = new Test3();
+        test3.setTest1(test1);
+        test3.setTest2(test2);
+        test3.setUserId(3);
+
+        String jsonString = JSONObject.toJSONString(test3);
+        Test4 test4 = JSON.parseObject(jsonString, Test4.class);
+        System.out.println(test4);
     }
 
     // ========================================Lambda表达式=============================================================

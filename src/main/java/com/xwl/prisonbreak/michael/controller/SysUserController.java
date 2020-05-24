@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xwl.Hello;
-import com.xwl.prisonbreak.annotation.CustomAopAnnotation;
+import com.xwl.prisonbreak.annotation.SysLogAnnotation;
 import com.xwl.prisonbreak.annotation.JWTCheckToken;
 import com.xwl.prisonbreak.annotation.JWTLoginToken;
 import com.xwl.prisonbreak.common.Audience;
@@ -36,7 +36,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/api/user")
 @Api(tags = "用户接口")
-@CustomAopAnnotation(param = "id", detail = "加在类上")
+@SysLogAnnotation(param = "id", detail = "加在类上")
 public class SysUserController {
 
     @Autowired
@@ -61,7 +61,7 @@ public class SysUserController {
         return sysUser;
     }
 
-    @CustomAopAnnotation(param = "id", detail = "加在方法上")
+    @SysLogAnnotation(param = "id", detail = "加在方法上")
     @GetMapping("/findByIdUseXml")
     @ApiOperation("根据id查询，通过写mapper.xml的方式实现")
     public SysUser findByIdUseXml(String id) {
@@ -163,7 +163,7 @@ public class SysUserController {
         return new ResponseResult<>(res);
     }
 
-    @CustomAopAnnotation(param = "sysUser", detail = "加在方法上，插入方法")
+    @SysLogAnnotation(param = "sysUser", detail = "加在方法上，插入方法")
     @PostMapping("insert")
     @ApiOperation("新增一条数据，返回新增的id")
     public Integer insert(@RequestBody SysUser sysUser) {

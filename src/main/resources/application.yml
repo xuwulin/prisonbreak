@@ -66,6 +66,13 @@ spring:
     # 通过connectionProperties属性来打开mergeSql功能：慢SQL记录
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
 
+  # rabbitmq配置
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
 ### ============================ 配置mybatis-plus ==============================
 mybatis-plus:
   # 配置扫描xml

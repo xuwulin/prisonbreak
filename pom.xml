@@ -69,6 +69,12 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- rabbitmq -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
         <!-- 引入mybatis-plus-boot-starter依赖 -->
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -304,7 +310,16 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/fastjson-1.2.21.jar</systemPath>
         </dependency>-->
-
+        <dependency>
+            <groupId>com.ibm.watson</groupId>
+            <artifactId>ibm-watson</artifactId>
+            <version>8.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baidu.aip</groupId>
+            <artifactId>java-sdk</artifactId>
+            <version>4.12.0</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -33,7 +33,7 @@ import java.lang.annotation.*;
 @Documented
 @Target({ElementType.TYPE, ElementType.METHOD}) // 此注解可以加在类上，方法上
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CustomAopAnnotation {
+public @interface SysLogAnnotation {
     // 属性根据业务需求添加，这里只是举例
     String param() default "";
     String detail() default "";
