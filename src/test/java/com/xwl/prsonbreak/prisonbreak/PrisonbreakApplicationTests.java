@@ -2,7 +2,6 @@ package com.xwl.prsonbreak.prisonbreak;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.xwl.prisonbreak.PrisonbreakApplication;
 import com.xwl.prisonbreak.michael.pojo.dto.Test1;
 import com.xwl.prisonbreak.michael.pojo.dto.Test2;
 import com.xwl.prisonbreak.michael.pojo.dto.Test3;
@@ -10,7 +9,6 @@ import com.xwl.prisonbreak.michael.pojo.dto.Test4;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.lang.reflect.InvocationTargetException;
@@ -25,7 +23,7 @@ import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.*;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = PrisonbreakApplication.class)
+//@SpringBootTest(classes = PrisonbreakApplication.class)
 public class PrisonbreakApplicationTests {
 
     @Test
@@ -159,7 +157,7 @@ public class PrisonbreakApplicationTests {
     @Test
     public void test4() {
         /**
-         * 第四种方式：方式引用：需要导入：import static java.util.Comparator.comparing;包
+         * 第四种方式：方法引用：需要导入：import static java.util.Comparator.comparing;包
          */
         inventory.sort(comparing(Apple::getWeight));
     }
@@ -291,7 +289,7 @@ public class PrisonbreakApplicationTests {
     @Test
     public void testStream1() {
         List<String> lowCaloricDishesName = menu.stream()
-                .filter(d -> d.getCalories() < 400) // 过滤卡路里小于400的失误
+                .filter(d -> d.getCalories() < 400) // 过滤卡路里小于400的食物
                 .sorted(comparing(Dish::getCalories)) // 按照热量排序，升序 comparing(Dish::getCalories).reversed()降序
                 .map(Dish::getName) // 提取菜名
                 .collect(toList()); // 转为集合
@@ -369,6 +367,7 @@ public class PrisonbreakApplicationTests {
                 .map(Arrays::stream)
                 .distinct()
                 .collect(toList()); // 仍然解决不了问题
+        System.out.println(collect1);
 
         // 你可以像下面这样使用 flatMap 来解决这个问题
         // 使用 flatMap 方法的效果是，各个数组并不是分别映射成一个流，而是映射成流的内容。
@@ -726,7 +725,8 @@ public class PrisonbreakApplicationTests {
         EUR, USD, JPY, GBP, CHF
     }
 
-    public static List<Transaction2> transactions2 = Arrays.asList(new Transaction2(Currency.EUR, 1500.0),
+    public static List<Transaction2> transactions2 = Arrays.asList(
+            new Transaction2(Currency.EUR, 1500.0),
             new Transaction2(Currency.USD, 2300.0),
             new Transaction2(Currency.GBP, 9900.0),
             new Transaction2(Currency.EUR, 1100.0),
@@ -849,7 +849,8 @@ public class PrisonbreakApplicationTests {
          */
         Stream<Integer> stream = Arrays.asList(1, 2, 3, 4, 5, 6).stream();
         List<Integer> numbers = stream.
-                reduce(new ArrayList<>(), (List<Integer> l, Integer e) -> {
+                reduce(new ArrayList<>(),
+                        (List<Integer> l, Integer e) -> {
                             l.add(e);
                             return l;
                         },
@@ -869,8 +870,6 @@ public class PrisonbreakApplicationTests {
         String shortMenu2 = menu.stream().map(Dish::getName).collect(reducing((s1, s2) -> s1 + s2)).get();
         // 方式二
         String shortMenu3 = menu.stream().collect(reducing("", Dish::getName, (s1, s2) -> s1 + s2));
-
-
     }
 
     public enum CaloricLevel {DIET, NORMAL, FAT}
@@ -939,13 +938,13 @@ public class PrisonbreakApplicationTests {
          */
         Map<Dish.Type, Set<CaloricLevel>> caloricLevelsByType =
                 menu.stream().collect(
-                        groupingBy(Dish::getType, mapping(
-                                dish -> {
-                                    if (dish.getCalories() <= 400) return CaloricLevel.DIET;
-                                    else if (dish.getCalories() <= 700) return CaloricLevel.NORMAL;
-                                    else return CaloricLevel.FAT;
-                                },
-                                toSet())));
+                        groupingBy(Dish::getType,
+                                mapping(dish -> {
+                                            if (dish.getCalories() <= 400) return CaloricLevel.DIET;
+                                            else if (dish.getCalories() <= 700) return CaloricLevel.NORMAL;
+                                            else return CaloricLevel.FAT;
+                                        },
+                                        toSet())));
         // {OTHER=[DIET, NORMAL], FISH=[DIET, NORMAL], MEAT=[FAT, DIET, NORMAL]}
         System.out.println(caloricLevelsByType);
     }
@@ -982,9 +981,13 @@ public class PrisonbreakApplicationTests {
      */
     public class Person {
         private Optional<Car> car;
+        private Integer age;
 
         public Optional<Car> getCar() {
             return car;
+        }
+        public Integer getAge() {
+            return age;
         }
     }
 
@@ -1014,6 +1017,7 @@ public class PrisonbreakApplicationTests {
          * 正如前文已经提到，你可以通过静态工厂方法 Optional.empty ，创建一个空的 Optional对象：
          */
         Optional<Car> optCar = Optional.empty();
+        System.out.println(optCar); // Optional.empty
 
         /**
          * 2. 依据一个非空值创建 Optional
@@ -1022,7 +1026,7 @@ public class PrisonbreakApplicationTests {
          * 试图访问 car 的属性值时才返回一个错误。
          */
 //        Car car = null;
-//        Optional<Car> optCar2 = Optional.of(car); // java.lang.NullPointerException
+//        Optional<Car> optCar2 = Optional.of(car); // 运行到此处就会抛：java.lang.NullPointerException
 //        System.out.println(optCar2);
 
         Optional<Car> optCar3 = Optional.of(new Car());
@@ -1068,7 +1072,7 @@ public class PrisonbreakApplicationTests {
          *  因此，它对 getInsurance 的调用是非法的，因为最外层的 optional 对象包含了另一个 optional
          * 对象的值，而它当然不会支持 getInsurance 方法
          */
-//        Optional<String> name = optPerson.map(Person::getCar) .map(Car::getInsurance).map(Insurance::getName); // 无法编译
+//        Optional<String> name3 = optPerson.map(Person::getCar).map(Car::getInsurance).map(Insurance::getName); // 无法编译
     }
 
     /**
@@ -1181,6 +1185,20 @@ public class PrisonbreakApplicationTests {
          * orElseGet 如果有值则将其返回，否则返回一个由指定的 Supplier 接口生成的值
          * orElseThrow 如果有值则将其返回，否则抛出一个由指定的 Supplier 接口生成的异常
          */
+    }
+
+    /**
+     * 找出年龄大于或者等于 minAge 参数的 Person 所对应的保险公司列表
+     * @param person
+     * @param minAge
+     * @return
+     */
+    public String getCarInsuranceName(Optional<Person> person, int minAge) {
+        return person.filter(p -> p.getAge() >= minAge)
+                .flatMap(Person::getCar)
+                .flatMap(Car::getInsurance)
+                .map(Insurance::getName)
+                .orElse("Unknown");
     }
 
 }

@@ -31,7 +31,9 @@ import static java.util.stream.Collectors.toList;
 @Slf4j
 public class ScheduleConfig implements SchedulingConfigurer {
 
-    // java8的日期
+    /**
+     * java8的日期
+     */
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Autowired
